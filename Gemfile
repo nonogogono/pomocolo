@@ -47,6 +47,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rails-erd'
   gem 'annotate'
+  gem "rspec"
+  gem "rspec_junit_formatter"
 end
 
 group :development do
