@@ -52,3 +52,4 @@ production:
   database: pomodoro_production
   username: pomodoro
   password: <%= ENV['POMODORO_DATABASE_PASSWORD'] %>
+  url: <%= ENV['JAWSDB_URL']&.sub('mysql://', 'mysql2://') %>
