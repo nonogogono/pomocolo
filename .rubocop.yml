@@ -4,6 +4,9 @@ inherit_from:
 Rails:
   Enabled: true
 
+Metrics/LineLength:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'db/**/*'
