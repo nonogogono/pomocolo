@@ -3,7 +3,3 @@ build:
     web: Dockerfile
 run:
   web: bundle exec puma -C config/puma.rb
-<<<<<<< HEAD
-  
-=======
->>>>>>> 46d66d50635db0e021fd9ae34033dbb6105ac561
