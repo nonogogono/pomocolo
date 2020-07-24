@@ -5,8 +5,11 @@ RSpec.describe "UsersController", type: :request do
     let!(:user) { create(:user) }
 
     context "ログインしている場合" do
-      it "リクエストが成功すること" do
+      before do
         sign_in user
+      end
+
+      it "リクエストが成功すること" do
         get user_path(user)
         expect(response).to have_http_status(200)
       end

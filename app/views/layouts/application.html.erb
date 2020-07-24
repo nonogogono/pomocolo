@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pomodoro</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <title><%= full_title(page_title: yield(:title)) %></title>
+    <%= render 'layouts/head' %>
   </head>
-
   <body>
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= render 'layouts/flash_devise' %>
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </div>
+    <%= render 'layouts/js' %>
   </body>
 </html>
