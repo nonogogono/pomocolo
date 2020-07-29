@@ -1,18 +1,27 @@
-@import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
 
 /* mixins, variables, etc. */
 
-$gray-medium-light: #eaeaea;
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
 
 /* universal */
 
 body {
   padding-top: 60px;
+  font-family: 'Courier New', sans-serif;
+  font-size: 14px;
+  background: #eee;
 }
 
 section {
-  overflow: auto;
+  // overflow: auto;
 }
 
 textarea {
@@ -21,10 +30,12 @@ textarea {
 
 .center {
   text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
 }
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
 
 /* typography */
 
@@ -45,7 +56,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $gray-light;
+  color: #777;
 }
 
 p {
@@ -54,45 +65,251 @@ p {
 }
 
 
+
 /* header */
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: white;
+  color: powderblue;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
 }
+
+#logo:hover {
+  // color: blue;
+  text-decoration: none;
+}
+
 
 /* footer */
 
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid $gray-medium-light;
-  color: $gray-light;
-  a {
-    color: $gray;
-    &:hover {
-      color: $gray-darker;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  color: #222;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
+}
+
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+
+
+/* work */
+.cover {
+  background: url(img/nixie.jpg);
+  /* background-size: cover; */
+  background-size: auto;
+}
+
+.container--extend {
+  margin: 20px auto;
+  /* width: 365px; */
+  width: 560px;
+  /* height: 500px; */
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.controls {
+  /* overflow: hidden; */
+  /* height: 80px; */
+  display: grid;
+  grid-template-areas:
+    "mi mi mp mp . . se se sp sp . . . . re re . st st"
+    "mi mi mm mm . . se se sm sm . . . . re re . st st";
+}
+
+.h-100 {
+  height: 100% !important;
+}
+
+.dropdown-menu {
+  min-width: inherit;
+  z-index: 100;
+}
+
+#timer-name{
+  float: left;
+
+}
+
+#timer-name:hover {
+  color: brown;
+  cursor: pointer;
+}
+
+#vol-slide{
+  float: right;
+}
+
+#vol-icon:hover{
+  color: brown;
+  cursor: pointer;
+}
+
+#timer {
+  background: rgba(255, 217, 0, 0.63);
+  height: 120px;
+  line-height: 120px;
+  font-size: 60px;
+  margin-bottom: 15px;
+  border-radius: 30px;
+}
+
+#min {
+  grid-area: mi;
+}
+
+#min-plus {
+  grid-area: mp;
+}
+
+#min-minus {
+  grid-area: mm;
+}
+
+#sec {
+  grid-area: se;
+}
+
+#sec-plus {
+  grid-area: sp;
+}
+
+#sec-minus {
+  grid-area: sm;
+}
+
+#reset {
+  grid-area: re;
+}
+
+#start {
+  grid-area: st;
+}
+
+.play-style {
+  color: lemonchiffon;
+}
+
+.pause-style {
+  color: snow;
+}
+
+.stop-style {
+  color: black;
+}
+
+#table-title {
+  font-family: 'Courier New', sans-serif;
+}
+
+
+/* sidebar */
+
+aside {
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
     }
   }
-  small {
-    float: left;
-  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 15px;
+}
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color: red;
   ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
-    }
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  // @extend .has-error;
+  @extend .is-invalid;
+  .form-control {
+    // color: $state-danger-text;
+    colof: #a94442;
   }
 }
