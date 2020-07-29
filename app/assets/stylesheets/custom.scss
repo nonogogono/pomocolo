@@ -20,10 +20,6 @@ body {
   background: #eee;
 }
 
-section {
-  // overflow: auto;
-}
-
 textarea {
   resize: vertical;
 }
@@ -310,6 +306,6 @@ input {
   @extend .is-invalid;
   .form-control {
     // color: $state-danger-text;
-    colof: #a94442;
+    color: #a94442;
   }
 }
