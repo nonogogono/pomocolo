@@ -1,0 +1,82 @@
+<% provide(:title, "Timer") %>
+<!-- Timer -->
+<section class="container--extend">
+  <div class="clearfix">
+    <h2 class="display-5 font-weight-bolder mb-2" id="timer-name">Timer
+      <h4 id="vol-slide">
+        <span id="vol-icon">
+          <i class="fas fa-volume-up vol-style"></i>
+        </span>
+      </h4>
+    </h2>
+  </div>
+  <div class="shadow border border-dark" id="timer">00:00</div>
+  <div class="controls">
+    <!-- 分 セット -->
+    <div class="dropdown dropright">
+      <button class="btn btn-primary btn-lg dropdown-toggle h-100" id="min" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Min
+      </button>
+      <div class="dropdown-menu" aria-labelledby="Min" id="min-sel">
+        <% for i in 0..11 do %>
+          <a class="dropdown-item" value="<%= 5*i %>"><%= 5*i %></a>
+        <% end %>
+      </div>
+    </div>
+    <div class="btn-group-vertical">
+      <button class="btn btn-outline-primary btn-sm h-50" id="min-plus">+</button>
+      <button class="btn btn-outline-primary btn-sm h-50" id="min-minus">-</button>
+    </div>
+    <!-- 秒 セット -->
+    <div class="dropdown dropright">
+      <button class="btn btn-info btn-lg dropdown-toggle h-100" id="sec" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sec
+      </button>
+      <div class="dropdown-menu" aria-labelledby="Sec" id="sec-sel">
+        <% for i in 0..11 do %>
+          <a class="dropdown-item" value="<%= 5*i %>"><%= 5*i %></a>
+        <% end %>
+      </div>
+    </div>
+    <div class="btn-group-vertical">
+      <button class="btn btn-outline-info btn-sm h-50" id="sec-plus">+</button>
+      <button class="btn btn-outline-info btn-sm h-50" id="sec-minus">-</button>
+    </div>
+    <!-- 停止ボタン -->
+    <button class="btn btn-outline-dark btn-lg h-100" id="reset" disabled="disabled">
+      <i class="fas fa-stop stop-style"></i>
+    </button>
+    <!-- 再生＆一時停止ボタン -->
+    <button class="btn btn-secondary btn-lg h-100" id="start" disabled="disabled">
+      <i class="fas fa-play play-style"></i>
+    </button>
+  </div>
+</section>
+<!-- 動画埋め込み -->
+<section class="text-center">
+  <h2 class="pt-4">With Work</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/shiOb5Tuea0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</section>
+<!-- 作業リスト -->
+<section class="bg-light text-center py-4">
+  <h2 class="mb-3" id="table-title">Done Today</h2>
+  <div class="container">
+    <table class="table table-hover table-dark table-sm">
+      <thead>
+        <tr>
+          <th style="width:10%">lap</th>
+          <th style="width:15%">time</th>
+          <th style="width:15%">start</th>
+          <th style="width:60%">task</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>30m</td><td>08:12</td><td>ドットインストール</td></tr>
+        <tr><td>2</td><td>15m</td><td>08:42</td><td>読書</td></tr>
+        <tr><td>3</td><td>40m</td><td>16:35</td><td>ポートフォリオ作成</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- タイマー音源 -->
+<%= render 'audios' %>

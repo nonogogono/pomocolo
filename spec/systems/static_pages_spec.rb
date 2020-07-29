@@ -7,7 +7,7 @@ RSpec.describe "StaticPages", type: :system do
     end
 
     it "トップページへのリンクが２つあること" do
-      within ".navbar" do
+      within "header" do
         expect(page).to have_link nil, href: root_path, count: 2
       end
     end
@@ -24,13 +24,13 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "ユーザーページのリンクがあること" do
-        within ".navbar" do
+        within "header" do
           expect(page).to have_link "あなた", href: user_path(user)
         end
       end
 
       it "ログアウトができること" do
-        within ".navbar" do
+        within "header" do
           expect(page).to have_link "ログアウト", href: destroy_user_session_path
           click_link "ログアウト"
         end
@@ -40,13 +40,13 @@ RSpec.describe "StaticPages", type: :system do
 
     context "ログインしていない場合" do
       it "ユーザー登録ページのリンクがあること" do
-        within ".navbar" do
+        within "header" do
           expect(page).to have_link "ユーザー登録", href: new_user_registration_path
         end
       end
 
       it "ログインページのリンクがあること" do
-        within ".navbar" do
+        within "header" do
           expect(page).to have_link "ログイン", href: new_user_session_path
         end
       end
