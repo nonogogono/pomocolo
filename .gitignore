@@ -31,3 +31,5 @@
 
 /vendor/*
 !/vendor/assets
+
+db/seeds.rb
