@@ -7,7 +7,7 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
-      <%= render 'layouts/flash_devise' %>
+      <%= render 'layouts/flash' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>

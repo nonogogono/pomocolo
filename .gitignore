@@ -12,6 +12,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/pid/.keep
+!/tmp/sockets/.keep
 
 # Ignore uploaded files in development
 /storage/*
@@ -31,3 +33,5 @@
 
 /vendor/*
 !/vendor/assets
+
+db/seeds.rb

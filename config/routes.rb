@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: [:show]
+  resources :microposts, only: [:create, :destroy]
 end
