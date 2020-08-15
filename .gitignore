@@ -34,4 +34,4 @@
 /vendor/*
 !/vendor/assets
 
-# db/seeds.rb
+db/seeds.rb
