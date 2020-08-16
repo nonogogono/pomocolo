@@ -6,7 +6,6 @@ RSpec.describe "Users", type: :system do
 
   describe "show layout" do
     let!(:user) { create(:user, profile: "海の王者になるために生まれました") }
-    # let!(:micropost) { create(:micropost_now) }
     let!(:micropost) { user.microposts.create(content: "イカ漁", created_at: 10.minutes.ago) }
     let!(:micropost_1) { user.microposts.create(content: "ホイ漁", created_at: 30.minutes.ago) }
     let!(:micropost_2) { user.microposts.create(content: "エビ漁", created_at: 45.minutes.ago) }
@@ -28,7 +27,7 @@ RSpec.describe "Users", type: :system do
       within ".user_info" do
         expect(page).to have_selector "img.gravatar"
         expect(page).to have_content user.name
-        expect(page).to have_content user.email
+        expect(page).to have_link "プロフィールを編集", href: edit_user_registration_path
         expect(page).to have_content user.profile
       end
 
