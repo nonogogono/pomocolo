@@ -42,4 +42,47 @@ RSpec.describe "UsersAuthentications", type: :request do
       end
     end
   end
+
+  describe "GET #edit" do
+    subject { get edit_user_registration_path }
+
+    let!(:user) { create(:user) }
+
+    context "ログインしている場合" do
+      before { sign_in user }
+
+      it "リクエストが成功すること" do
+        is_expected.to eq 200
+      end
+    end
+
+    context "ログインしていない場合" do
+      it "ログインページにリダイレクトされること" do
+        is_expected.to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    let!(:user) { create(:user) }
+
+    context "ログインしている場合" do
+      before { sign_in user }
+
+      it "ユーザーアカウントの削除が成功すること" do
+        expect do
+          delete user_registration_path
+        end.to change(User, :count).by(-1)
+      end
+    end
+
+    context "ログインしていない場合" do
+      it "ログインページにリダイレクトされること" do
+        expect do
+          delete user_registration_path
+        end.not_to change(User, :count)
+        is_expected.to redirect_to new_user_session_path
+      end
+    end
+  end
 end

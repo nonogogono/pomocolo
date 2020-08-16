@@ -3,9 +3,11 @@
   <aside class="col-md-4">
     <section class="user_info">
       <p><%= gravatar_for @user %></p>
-      <p>名前 : <%= @user.name %></p>
-      <p>メールアドレス : <%= @user.email %></p>
-      <p>プロフィール : <%= @user.profile %></p>
+      <h5 class="user-name"><%= @user.name %></h5>
+      <% if @user == current_user %>
+        <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-secondary btn-sm btn-profile-link" %>
+      <% end %>
+      <p><%= @user.profile %></p>
     </section>
   </aside>
   <div class="col-md-8">
