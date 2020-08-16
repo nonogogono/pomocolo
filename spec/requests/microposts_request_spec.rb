@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Microposts", type: :request do
   let!(:user) { create(:user) }
-  # let!(:micropost) { build(:micropost_now) }
   let!(:micropost) { create(:micropost_now) }
   let!(:micropost_taro) { create(:micropost_taro) }
 
