@@ -1,15 +1,15 @@
 <% provide(:title, @user.name) %>
-<h2>プロフィールを編集</h2>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render partial: "devise/shared/error_messages", locals: { resource: resource, adjust_position: "registrations_edit" } %>
-  <div class="form-wrapper">
+<div class="form-wrapper">
+  <h2 style="font-weight: bold;">プロフィールを編集</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
     <div class="field">
       <%= f.label :name, class: "form form-label" %>
       <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form form-field" %>
     </div>
-    <div class="field field-form-area">
-      <%= f.label :profile, class: "form form-label" %>
-      <%= f.text_area :profile, rows: 2, autofocus: true, autocomplete: "profile", class: "form form-area" %>
+    <div class="field">
+      <%= f.label "　プロフィール\n(任意)", class: "form form-label" %>
+      <%= f.text_area :profile, rows: 2, autofocus: true, autocomplete: "profile", class: "form form-area", id: "profile-area" %>
     </div>
     <div class="field">
       <%= f.label :email, class: "form form-label" %>
@@ -23,17 +23,18 @@
       <%= f.password_field :current_password, autocomplete: "current-password", class: "form form-field" %>
     </div>
     <br>
-    <div class="actions btn-profile">
-      <%= f.submit " 更新", class: "btn btn-primary btn-sm" %>
+    <div class="actions">
+      <%= f.submit " 更新", class: "btn btn-primary btn-sm btn-profile" %>
     </div>
+  <% end %>
+  <hr>
+  <div class="under-link">
+    <span class="back-link">
+      <%= link_to "戻る", user_path(resource) %>
+    </span>
+    <span class="delete-profile">
+      <%= link_to "アカウント削除", registration_path(resource_name), method: :delete, class:"delete-account",
+          data: { confirm: "本当に削除しますか？"} %>
+    </span>
   </div>
-<% end %>
-<div class="under-link">
-  <span class="back-link">
-    <%= link_to "戻る", user_path(resource) %>
-  </span>
-  <span class="delete-profile">
-    <%= link_to "アカウント削除", registration_path(resource_name), method: :delete, class:"delete-account",
-        data: { confirm: "本当に削除しますか？"} %>　
-  </span>
 </div>

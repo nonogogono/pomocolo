@@ -19,28 +19,28 @@ RSpec.describe "UsersRegistrations", type: :system do
         expect(page).to have_content user.name
       end
       all(".field")[1] do
-        expect(page).to have_content user.email
+        expect(page).to have_content user.profile
       end
       all(".field")[2] do
-        expect(page).to have_content user.profile
+        expect(page).to have_content user.email
       end
       all(".field")[3] do
         expect(page).not_to have_content user.password
       end
 
       # 更新に失敗
-      fill_in "フルネーム", with: ""
-      fill_in "自己紹介", with: ""
+      fill_in "ユーザー名", with: ""
+      fill_in "profile-area", with: ""
       fill_in "メールアドレス", with: ""
       fill_in "パスワード", with: ""
       click_button "更新"
       expect(current_path).to eq "/users"
-      expect(page).to have_content "3 件のエラーが発生したため ユーザ は保存されませんでした。"
-      expect(page).to have_content "メールアドレスが入力されていません。"
-      expect(page).to have_content "フルネームが入力されていません。"
+      expect(page).to have_content "3 件のエラーが発生したため ユーザ は保存されませんでした"
+      expect(page).to have_content "ユーザー名が入力されていません"
+      expect(page).to have_content "メールアドレスが入力されていません"
       expect(page).to have_content "現在のパスワードを入力してください"
-      fill_in "フルネーム", with: "superman"
-      fill_in "自己紹介", with: "マン・オブ・スティールはDCコミックスです！？"
+      fill_in "ユーザー名", with: "superman"
+      fill_in "profile-area", with: "マン・オブ・スティールはDCコミックスです！？"
       fill_in "メールアドレス", with: "man-of-steel@dc-commics.com"
       fill_in "パスワード", with: "ironman"
       click_button "更新"
@@ -50,13 +50,13 @@ RSpec.describe "UsersRegistrations", type: :system do
       # 更新に成功
       fill_in "パスワード", with: "password"
       click_button "更新"
-      expect(current_path).to eq root_path
-      expect(page).to have_content "アカウント情報を変更しました。"
+      expect(current_path).to eq user_path(user)
+      expect(page).to have_content "アカウント情報を変更しました"
     end
 
     it "ユーザーページへ戻る" do
       click_link "戻る"
-      expect(current_path).to eq user_path(user.id)
+      expect(current_path).to eq user_path(user)
     end
 
     it "ユーザーアカウントを削除する", js: true do
@@ -71,7 +71,7 @@ RSpec.describe "UsersRegistrations", type: :system do
         click_link "アカウント削除"
       end
       expect(current_path).to eq new_user_session_path
-      expect(page).to have_content "アカウント登録もしくはログインしてください。"
+      expect(page).to have_content "アカウント登録もしくはログインしてください"
     end
   end
 end

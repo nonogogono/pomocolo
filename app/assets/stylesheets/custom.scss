@@ -320,50 +320,73 @@ input {
 
 .form-wrapper {
   text-align: center;
+  background-color: floralwhite;
+  padding: 30px;
+  border-radius: 5px;
 }
 
 .field {
-  height: 50px;
   margin-top: 10px; 
   margin-bottom: 10px; 
 }
 
-.field-form-area {
-  margin-bottom: 45px;
-}
-
 .form {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 30px;
   display: inline-block;
+  // border: solid 1px black;
 }
 
 .form-label {
-  text-align: right;
-  vertical-align: top;
-  width : 120px;
-  margin-right: 15px;
+  max-width: 400px;
+  @media screen and (max-width: 767px) {
+    text-align: left;
+  }
+  @media screen and (min-width: 768px) {
+    text-align: right;
+    vertical-align: top;
+    width : 120px;
+    margin-right: 15px;
+  }
 }
 
 .form-field {
-  width: 400px;
+  max-width: 400px;
 }
 
 .form-area {
-  width: 400px;
+  max-width: 400px;
   height: 60px;
 }
 
+// .field {
+//   border: solid 1px black;
+// }
+
+// .remember-me {
+//   border: solid 1px black;
+// }
+
+.check-box {
+  width: 10px;
+}
+
+// .check-label {
+//   border: solid 1px blue;
+// }
+
+.btn-login,
+.btn-guest-login,
+.btn-signup,
 .btn-profile {
-  margin: 0 38.5%;
-  width: 400px;
+  margin: 5px 0;
+  width: 200px;
 }
 
 .under-link {
-  margin: 0 38.5%;
-  width: 400px;
+  // border: solid 1px black;
+  margin: 0 auto;
+  width: 200px;
   .back-link a {
+    float: left;
     &:hover {
       text-decoration: none;
     }
@@ -380,6 +403,12 @@ input {
 .btn-profile-link {
   margin-bottom: 30px;
   font-weight: bold;
+}
+
+.devise-shared-links {
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 /* microposts */
@@ -413,6 +442,10 @@ input {
     margin-right: 10px;
     margin-top: 5px;
   }
+}
+
+.btn-post {
+  margin-top: 50px;
 }
 
 aside {

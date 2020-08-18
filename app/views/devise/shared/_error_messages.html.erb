@@ -3,17 +3,12 @@
     <h2>
       <%= I18n.t("errors.messages.not_saved",
                  count: resource.errors.count,
-                 resource: resource.class.model_name.human.downcase)
-       %>
+                 resource: resource.class.model_name.human.downcase) %>
     </h2>
-    <% if adjust_position == "registrations_edit" %>
-      <ul style="margin-left: 345px;">
-    <% else %>
-      <ul style="margin-left: 50px; text-align: left;">
-    <% end %>
+    <ul style="list-style: none;">
       <% resource.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
+    </ul>
   </div>
 <% end %>

@@ -5,7 +5,11 @@
       <p><%= gravatar_for @user %></p>
       <h5 class="user-name"><%= @user.name %></h5>
       <% if @user == current_user %>
-        <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-secondary btn-sm btn-profile-link" %>
+        <% if @user.email == 'guest@example.com' %>
+          <p>※ゲストユーザーの変更・削除はできません</p>
+        <% else %>
+          <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-secondary btn-sm btn-profile-link" %>
+        <% end %>
       <% end %>
       <p><%= @user.profile %></p>
     </section>

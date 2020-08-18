@@ -10,4 +10,10 @@ FactoryBot.define do
     sequence(:email) { |n| "okamoto-#{n}@example.org" }
     password { "password" }
   end
+
+  factory :guest, class: "User" do
+    name { "guest" }
+    sequence(:email) { "guest@example.com" }
+    password { SecureRandom.urlsafe_base64 }
+  end
 end
