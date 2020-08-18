@@ -18,7 +18,7 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "トップページにアクセスする" do
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content "ログインしました"
         visit root_path
         expect(current_path).to eq root_path
         expect(title).to eq full_title
@@ -63,7 +63,7 @@ RSpec.describe "StaticPages", type: :system do
       it "ログアウトする" do
         click_link "ログアウト"
         expect(current_path).to eq new_user_session_path
-        expect(page).to have_content "アカウント登録もしくはログインしてください。"
+        expect(page).to have_content "アカウント登録もしくはログインしてください"
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe "StaticPages", type: :system do
       it "トップページにアクセスすると、ログインページにリダイレクトされる" do
         expect(current_path).to eq new_user_session_path
         expect(title).to eq full_title(page_title: "ログイン")
-        expect(page).to have_content "アカウント登録もしくはログインしてください。"
+        expect(page).to have_content "アカウント登録もしくはログインしてください"
 
         within "header" do
           expect(page).to have_link nil, href: root_path, count: 2

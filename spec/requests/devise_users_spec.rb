@@ -47,8 +47,17 @@ RSpec.describe "UsersAuthentications", type: :request do
     subject { get edit_user_registration_path }
 
     let!(:user) { create(:user) }
+    let!(:guest) { create(:guest) }
 
-    context "ログインしている場合" do
+    context "ゲストでログインしている場合" do
+      before { sign_in guest }
+
+      it "トップページにリダイレクトされること" do
+        is_expected.to redirect_to root_path
+      end
+    end
+
+    context "ゲスト以外でログインしている場合" do
       before { sign_in user }
 
       it "リクエストが成功すること" do
@@ -65,8 +74,20 @@ RSpec.describe "UsersAuthentications", type: :request do
 
   describe "DELETE #destroy" do
     let!(:user) { create(:user) }
+    let!(:guest) { create(:guest) }
 
-    context "ログインしている場合" do
+    context "ゲストでログインしている場合" do
+      before { sign_in guest }
+
+      it "トップページにリダイレクトされること" do
+        expect do
+          delete user_registration_path
+        end.not_to change(User, :count)
+        is_expected.to redirect_to root_path
+      end
+    end
+
+    context "ゲスト以外でログインしている場合" do
       before { sign_in user }
 
       it "ユーザーアカウントの削除が成功すること" do
