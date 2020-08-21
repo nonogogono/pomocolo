@@ -17,11 +17,6 @@ RSpec.describe "UsersAuthentications", type: :request do
           post user_registration_path, params: { user: user_params }
         end.to change(User, :count).by 1
       end
-
-      it "ユーザーページにリダイレクトされること" do
-        post user_registration_path, params: { user: user_params }
-        expect(response).to redirect_to user_url(user.id + 1)
-      end
     end
 
     context "パラメータが不正な場合" do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let!(:user) { User.new(name: "Harry Potter", email: "gryffindor@hogwarts.org", password: "nimbus") }
+  let!(:user) { User.new(name: "Harry Potter", email: "gryffindor@hogwarts.org", password: "nimbus", confirmed_at: Time.now) }
 
   it "name, email, password があれば有効な状態であること" do
     expect(user).to be_valid
@@ -20,8 +20,8 @@ RSpec.describe User, type: :model do
   end
 
   it "email が重複していれば無効な状態であること" do
-    User.create(name: "Ron Weasley", email: "gryffindor@hogwarts.org", password: "largefamily")
-    user_2 = User.new(name: "Hermione Granger", email: "gryffindor@hogwarts.org", password: "brightest")
+    User.create(name: "Ron Weasley", email: "gryffindor@hogwarts.org", password: "largefamily", confirmed_at: Time.now)
+    user_2 = User.new(name: "Hermione Granger", email: "gryffindor@hogwarts.org", password: "brightest", confirmed_at: Time.now)
     user_2.valid?
     expect(user_2.errors[:email]).to include("は既に使用されています")
   end

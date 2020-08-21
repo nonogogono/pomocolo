@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   has_many :microposts, dependent: :destroy
 
@@ -13,7 +13,7 @@ class User < ApplicationRecord
     find_or_create_by!(email: "guest@example.com") do |user|
       user.name = "guest"
       user.password = SecureRandom.urlsafe_base64
-      # user.confirmed_at = Time.now
+      user.confirmed_at = Time.now
     end
   end
 
