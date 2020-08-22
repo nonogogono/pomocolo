@@ -1,5 +1,7 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<h2>メールアドレスを認証して利用を開始</h2>
+<p><%= @email %> があなたのメールアドレスであると認証した後で、アプリをご利用することができます。</p>
+<p>以下のリンクからメールアドレスを認証します。</p>
+<br>
+<p><%= link_to 'メールアドレスを認証する', confirmation_url(@resource, confirmation_token: @token) %></p>
+<br>
+<p>※このメールに心あたりがない場合は、無視してください。</p>
