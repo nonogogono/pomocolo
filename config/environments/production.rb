@@ -72,11 +72,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'pomodoro3new.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => "smtp.sendgrid.net",
+    :address => "smtp.gmail.com",
     :port => 587,
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD'],
-    :domain => 'heroku.com',
+    :user_name => Rails.application.credentials.devise[:email],
+    :password => Rails.application.credentials.devise[:pass],
     :authentication => :plain,
     :enable_starttls_auto => true
   }
