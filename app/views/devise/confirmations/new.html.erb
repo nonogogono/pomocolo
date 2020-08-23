@@ -2,7 +2,7 @@
 <div class="form-wrapper">
   <h2 style="font-weight: bold;">認証メール再送</h2>
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "devise/shared/error_messages", resource: resource, errors_num_unnecessary: "true" %>
     <div class="field">
       <%= f.label :email, class: "form form-label" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form form-field", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>

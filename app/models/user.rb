@@ -9,6 +9,19 @@ class User < ApplicationRecord
 
   has_many :microposts, dependent: :destroy
 
+  # override Devise::Models::Confirmable#send_on_create_confirmation_instructions
+  def send_on_create_confirmation_instructions
+    generate_confirmation_token! unless @raw_confirmation_token
+    send_devise_notification(:confirmation_on_create_instructions, @raw_confirmation_token, {})
+  end
+
+  # override Devise::Models::Confirmable#resend_confirmation_instructions
+  def resend_confirmation_instructions
+    pending_any_confirmation do
+      send_on_create_confirmation_instructions
+    end
+  end
+
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |user|
       user.name = "guest"
