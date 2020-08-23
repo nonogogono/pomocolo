@@ -1,7 +1,5 @@
-<h2>メールアドレスを認証して利用を開始</h2>
-<p><%= @email %> があなたのメールアドレスであると認証した後で、アプリをご利用することができます。</p>
-<p>以下のリンクからメールアドレスを認証します。</p>
+<p>以下のリンクから新しいメールアドレスを認証します。</p>
+<p><%= link_to 'メールアドレスを変更する', confirmation_url(@resource, confirmation_token: @token) %></p>
 <br>
-<p><%= link_to 'メールアドレスを認証する', confirmation_url(@resource, confirmation_token: @token) %></p>
-<br>
+<p>このリンクをクリックするまで、メールアドレスの変更はされません。</p>
 <p>※このメールに心あたりがない場合は、無視してください。</p>

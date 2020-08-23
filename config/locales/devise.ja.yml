@@ -55,7 +55,7 @@ ja:
               confirmation: "が内容とあっていません"
     attributes:
       user:
-        current_password: "現在のパスワード"
+        current_password: "パスワード"
         name: "ユーザー名"
         nickname: "ユーザーネーム"
         web: "ウェブサイト"
@@ -67,16 +67,22 @@ ja:
         password_confirmation: "パスワードを確認"
         remember_me: "次回から自動的にログイン"
     models:
-      user: "ユーザ"
+      user: "ユーザー"
   devise:
     confirmations:
       new:
         resend_confirmation_instructions: "アカウント確認メール再送"
     mailer:
-      confirmation_instructions:
+      confirmation_on_create_instructions:
+        subject: "アカウント登録について"
         action: "アカウント確認"
         greeting: "ようこそ、%{recipient}さん!"
         instruction: "次のリンクでメールアドレスの確認が完了します:"
+      confirmation_instructions:
+        subject: "メールアドレスの変更について"
+        action: "メールアドレス変更"
+        greeting: "ようこそ、%{recipient}さん!"
+        instruction: "次のリンクでメールアドレスの変更が完了します:"
       reset_password_instructions:
         action: "パスワード変更"
         greeting: "こんにちは、%{recipient}さん!"
