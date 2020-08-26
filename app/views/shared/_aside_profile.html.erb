@@ -1,0 +1,19 @@
+<section class="user_info">
+  <span class="aside-profile-top">
+    <%= link_to user_path(user) do %>
+      <%= gravatar_for(user, size: 80) %>
+      <h5 class="user-name"><%= user.name %></h5>
+    <% end %>
+  </span><br>
+  <span>投稿<strong><%= user.microposts.count %></strong>件</span>
+</section>
+<section>
+  <%= render 'shared/stats', user: user %>
+  <% if users.present? %>
+    <div class="user_avatars">
+      <% users.each do |u| %>
+        <%= link_to gravatar_for(u, size: 30), user_path(u) %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

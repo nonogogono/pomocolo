@@ -10,9 +10,14 @@
         <% else %>
           <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-secondary btn-sm btn-profile-link" %>
         <% end %>
+      <% else %>
+        <%= render 'follow_form' %>
       <% end %>
       <p><%= @user.profile %></p>
     </section>
+    <div>
+      <%= render 'shared/stats', user: @user %>
+    </div>
   </aside>
   <div class="col-md-8">
     <% if @user.microposts.any? %>
