@@ -19,6 +19,13 @@ FactoryBot.define do
     confirmed_at { Time.now }
   end
 
+  factory :cameron, class: "User" do
+    name { "diaz" }
+    sequence(:email) { |n| "mask-#{n}@example.org" }
+    password { "password" }
+    confirmed_at { Time.now }
+  end
+
   factory :guest, class: "User" do
     name { "guest" }
     sequence(:email) { "guest@example.com" }

@@ -244,7 +244,6 @@ footer ul li {
   font-family: 'Courier New', sans-serif;
 }
 
-
 /* sidebar */
 
 aside {
@@ -273,6 +272,16 @@ aside {
   }
 }
 
+.aside-profile-top {
+  line-height: 1.5em;
+  a {
+    color: black;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .gravatar {
   float: left;
   margin-right: 10px;
@@ -284,6 +293,55 @@ aside {
 
 .user-name {
   margin-top: 10px;
+}
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid gray;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+  a {
+    padding: 0;
+  }
+}
+
+.users.follow {
+  padding: 0;
+}
+
+.users-index-name {
+  font-size: 16px;
+  margin-top: 12px;
+  a {
+    color: black;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 /* forms */
@@ -399,7 +457,9 @@ input {
   }
 }
 
-.btn-profile-link {
+.btn-profile-link,
+.btn-follow {
+  width: 145px;
   margin-bottom: 30px;
   font-weight: bold;
 }
@@ -407,6 +467,18 @@ input {
 .devise-shared-links {
   a:hover {
     text-decoration: none;
+  }
+}
+
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid white;
   }
 }
 
@@ -443,8 +515,8 @@ input {
   }
 }
 
-.btn-post {
-  margin-top: 50px;
+.gravatar-radius {
+  border-radius: 300px;
 }
 
 aside {

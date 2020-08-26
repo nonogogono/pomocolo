@@ -1,9 +1,7 @@
 <% if user_signed_in? %>
   <div class="row">
     <aside class="col-md-4">
-      <section class="user_info">
-        <%= render 'shared/user_info' %>
-      </section>
+      <%= render 'shared/aside_profile', users: nil, user: current_user %>
       <section class="micropost_form">
         <%= render 'shared/micropost_form', micropost: @micropost %>
       </section>

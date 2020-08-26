@@ -1,0 +1,22 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <%= render 'shared/aside_profile', users: @users, user: @user %>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @users.any? %>
+      <ul class="users follow">
+        <% @users.each do |user| %>
+          <li>
+            <%= link_to gravatar_for(user, size: 50), user_path(user) %>
+             <div class="users-index-name">
+              <%= link_to user.name, user_path(user) %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <%= paginate @users %>
+    <% end %>
+  </div>
+</div>

@@ -53,6 +53,11 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_content user.profile
         end
 
+        within ".stats" do
+          expect(page).to have_link "フォロワー 0人", href: followers_user_path(user)
+          expect(page).to have_link "フォロー中 0人", href: following_user_path(user)
+        end
+
         within ".col-md-8" do
           expect(page).to have_content user.microposts.count.to_s
           expect(page).to have_selector "img.gravatar"

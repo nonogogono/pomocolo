@@ -10,10 +10,27 @@ RSpec.describe "StaticPages", type: :system do
 
     context "ログインしている場合" do
       let!(:user) { create(:user) }
+      let!(:taro) { create(:taro) }
+      let!(:cameron) { create(:cameron) }
+      let!(:hikonyan) { create(:user, name: "hikonyan") }
+      let!(:funassyi) { create(:user, name: "funassyi") }
+      let!(:kumamon) { create(:user, name: "kumamon") }
       let!(:long_text) { "l" * 201 }
       let!(:good_text) { "今日はいい天気じゃのう。" }
+      let!(:taro_micropost1) { taro.microposts.create!(content: "芸術は爆発だ") }
+      let!(:taro_micropost2) { taro.microposts.create!(content: "自分の中に毒を持て") }
+      let!(:cameron_micropost1) { taro.microposts.create!(content: "メリーに首ったけ") }
+      let!(:cameron_micropost2) { taro.microposts.create!(content: "バッド・ティーチャー") }
 
       before do
+        user.follow(taro)
+        user.follow(cameron)
+        user.follow(hikonyan)
+        user.follow(funassyi)
+        user.follow(kumamon)
+        taro.follow(user)
+        funassyi.follow(user)
+        kumamon.follow(user)
         sign_in_as user
       end
 
@@ -28,6 +45,17 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_link "タイマー", href: timer_path
           expect(page).to have_link "あなた", href: user_path(user)
           expect(page).to have_link "ログアウト", href: destroy_user_session_path
+        end
+
+        within ".stats" do
+          expect(page).to have_link "フォロワー 3人", href: followers_user_path(user)
+          expect(page).to have_link "フォロー中 5人", href: following_user_path(user)
+        end
+
+        within ".microposts" do
+          user.feed.page.each do |micropost|
+            expect(page).to have_content micropost.content
+          end
         end
       end
 
@@ -55,7 +83,7 @@ RSpec.describe "StaticPages", type: :system do
         click_button "投稿"
         expect(page).to have_content "投稿されました！"
         expect(current_path).to eq root_path
-        within ".col-md-8" do
+        within ".microposts" do
           expect(page).to have_content good_text
         end
       end
