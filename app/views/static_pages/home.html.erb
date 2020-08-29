@@ -7,8 +7,28 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a href="#tab-feed" class="nav-link active" data-toggle="tab">フィード</a>
+        </li>
+        <li class="nav-item">
+          <a href="#tab-user" class="nav-link" data-toggle="tab">アカウント検索</a>
+        </li>
+        <li class="nav-item">
+          <a href="#tab-micropost" class="nav-link" data-toggle="tab">投稿検索</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div id="tab-feed" class="tab-pane active">
+          <%= render 'static_pages/feed' %>
+        </div>
+        <div id="tab-user" class="tab-pane">
+          <%= render 'static_pages/search_user' %>
+        </div>
+        <div id="tab-micropost" class="tab-pane">
+          <%= render 'static_pages/search_micropost' %>
+        </div>
+      </div>
     </div>
   </div>
 <% else %>

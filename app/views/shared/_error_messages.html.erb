@@ -1,12 +1,14 @@
 <% if object.errors.any? %>
   <div id="error_explanation">
-    <div class="alert alert-danger">
-      <%= object.errors.count %>つエラーがあります
-    </div>
-    <ul>
-    <% object.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% unless defined? errors_num_unnecessary %>
+      <div class="alert alert-danger">
+        <%= object.errors.count %>つエラーがあります
+      </div>
     <% end %>
+    <ul class="errors-full-messages">
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>

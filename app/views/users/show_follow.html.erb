@@ -6,17 +6,7 @@
   <div class="col-md-8">
     <h3><%= @title %></h3>
     <% if @users.any? %>
-      <ul class="users follow">
-        <% @users.each do |user| %>
-          <li>
-            <%= link_to gravatar_for(user, size: 50), user_path(user) %>
-             <div class="users-index-name">
-              <%= link_to user.name, user_path(user) %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-      <%= paginate @users %>
+      <%= render 'shared/user_index', users: @users %>
     <% end %>
   </div>
 </div>

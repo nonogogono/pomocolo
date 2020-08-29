@@ -1,4 +1,5 @@
 class MicropostsController < ApplicationController
+  before_action :home_tab_contents, only: :create
   before_action :correct_user, only: :destroy
 
   def create
@@ -7,7 +8,6 @@ class MicropostsController < ApplicationController
       flash[:success] = "投稿されました！"
       redirect_to root_url
     else
-      @feed_items = current_user.feed.recent.page(params[:page]).per(10)
       render 'static_pages/home'
     end
   end

@@ -1,0 +1,16 @@
+<div class="search-box clearfix">
+  <%= search_form_for @search_micropost, as: :p, url: root_path do |f| %>
+    <%= f.search_field :content_cont, class: "search-field", id: "search-field-micropost" %>
+    <%= f.button :type => "submit", class: "search-btn", id: "search-btn-micropost" do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+  <% end %>
+</div>
+<% if defined? @microposts %>
+  <ul class="microposts">
+    <% @microposts.each do |micropost| %>
+      <%= render 'shared/micropost', micropost: micropost %>
+    <% end %>
+  </ul>
+  <%= paginate @microposts %>
+<% end %>
