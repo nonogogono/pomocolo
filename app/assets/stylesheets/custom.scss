@@ -374,6 +374,10 @@ input {
   }
 }
 
+.errors-full-messages {
+  list-style: none
+}
+
 /* user account form */
 
 .form-wrapper {
@@ -479,6 +483,47 @@ input {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid white;
+  }
+}
+
+/* home nav */
+
+.nav-tabs {
+  margin-bottom: 20px;
+
+  .nav-link {
+    font-weight: bold;
+    color: gray;
+  }
+
+  .nav-link.active {
+    color:#00CED1;
+    background-color: whitesmoke;
+    border-bottom: solid 3px #00CED1;
+  }
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.search-field {
+  width: 94%;
+  float: right;
+}
+
+.search-btn {
+  display:block;
+  width: 6%;
+  height: 25px;
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+  color: gray;
+  background: white;
+  &:hover {
+    background: gainsboro;
   }
 }
 

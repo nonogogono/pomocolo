@@ -9,18 +9,20 @@ RSpec.describe "StaticPages", type: :system do
     end
 
     context "ログインしている場合" do
-      let!(:user) { create(:user) }
-      let!(:taro) { create(:taro) }
-      let!(:cameron) { create(:cameron) }
-      let!(:hikonyan) { create(:user, name: "hikonyan") }
-      let!(:funassyi) { create(:user, name: "funassyi") }
-      let!(:kumamon) { create(:user, name: "kumamon") }
+      let!(:user) { create(:user, profile: "テストユーザー１号") }
+      let!(:taro) { create(:taro, profile: "若き日をフランスで過ごす") }
+      let!(:cameron) { create(:cameron, profile: "映画デビュー作は『マスク』") }
+      let!(:hikonyan) { create(:user, name: "hikonyan", profile: "彦根市のゆるキャラ") }
+      let!(:funassyi) { create(:user, name: "funassyi", profile: "kumamon はライバル") }
+      let!(:kumamon) { create(:user, name: "kumamon", profile: "funassyi はライバル") }
+      let!(:akuma) { create(:user, name: "akuma", profile: "豪鬼の海外表記") }
       let!(:long_text) { "l" * 201 }
       let!(:good_text) { "今日はいい天気じゃのう。" }
       let!(:taro_micropost1) { taro.microposts.create!(content: "芸術は爆発だ") }
       let!(:taro_micropost2) { taro.microposts.create!(content: "自分の中に毒を持て") }
-      let!(:cameron_micropost1) { taro.microposts.create!(content: "メリーに首ったけ") }
-      let!(:cameron_micropost2) { taro.microposts.create!(content: "バッド・ティーチャー") }
+      let!(:cameron_micropost1) { cameron.microposts.create!(content: "メリーに首ったけ") }
+      let!(:cameron_micropost2) { cameron.microposts.create!(content: "バッド・ティーチャー") }
+      let!(:akuma_micropost) { akuma.microposts.create!(content: "この拳、骨に刻むがよい！") }
 
       before do
         user.follow(taro)
@@ -52,7 +54,7 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_link "フォロー中 5人", href: following_user_path(user)
         end
 
-        within ".microposts" do
+        within "#tab-feed" do
           user.feed.page.each do |micropost|
             expect(page).to have_content micropost.content
           end
@@ -69,7 +71,7 @@ RSpec.describe "StaticPages", type: :system do
         expect(current_path).to eq "/microposts"
 
         # フォームに201文字を入力
-        fill_in "何かメモする？", with: long_text
+        fill_in "Content", with: long_text
         click_button "投稿"
         expect(page).to have_content "1つエラーがあります"
         expect(page).to have_content "Contentは200文字以内で入力してください"
@@ -79,12 +81,56 @@ RSpec.describe "StaticPages", type: :system do
         end
 
         # フォームに200字以内で入力
-        fill_in "何かメモする？", with: good_text
+        fill_in "Content", with: good_text
         click_button "投稿"
         expect(page).to have_content "投稿されました！"
         expect(current_path).to eq root_path
         within ".microposts" do
           expect(page).to have_content good_text
+        end
+      end
+
+      it "アカウント検索をする" do
+        visit root_path
+        click_on "アカウント検索"
+
+        within "#tab-user" do
+          fill_in "q[name_or_profile_cont]", with: "kuma"
+          click_on "button"
+          expect(current_path).to eq root_path
+          expect(page).to have_selector '.users-index-name', count: 3
+          expect(page).to have_content funassyi.name
+          expect(page).to have_content kumamon.name
+          expect(page).to have_content akuma.name
+          expect(page).not_to have_content user.name
+          expect(page).not_to have_content taro.name
+          expect(page).not_to have_content cameron.name
+          expect(page).not_to have_content hikonyan.name
+        end
+
+        within "#tab-micropost" do
+          expect(page).not_to have_selector '.content'
+        end
+      end
+
+      it "投稿検索をする" do
+        visit root_path
+        click_on "アカウント検索"
+
+        within "#tab-micropost" do
+          fill_in "p[content_cont]", with: "に"
+          click_on "button"
+          expect(current_path).to eq root_path
+          expect(page).to have_selector '.content', count: 3
+          expect(page).to have_content taro_micropost2.content
+          expect(page).to have_content cameron_micropost1.content
+          expect(page).to have_content akuma_micropost.content
+          expect(page).not_to have_content taro_micropost1.content
+          expect(page).not_to have_content cameron_micropost2.content
+        end
+
+        within "#tab-user" do
+          expect(page).not_to have_selector '.users-index-name'
         end
       end
 

@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def home_tab_contents
+    @feed_items = current_user.feed.recent.page(params[:page]).per(Constants::FEED_NUM)
+    @search_user = User.ransack(params[:q])
+    @users = @search_user.result(distinct: true).page(params[:page]).per(Constants::SEARCH_USER_NUM) if params[:q].present?
+    @search_micropost = Micropost.ransack(params[:p], search_key: :p)
+    @microposts = @search_micropost.result(distinct: true).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
+  end
+
   protected
 
   def configure_permitted_parameters
