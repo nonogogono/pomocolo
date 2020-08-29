@@ -2,4 +2,9 @@ module Constants
   APP_NAME = 'Pomodoro（仮）'
   MAILER_SENDER_DISPLAY_NAME = 'pomodoro3 事務局'
   PRODUCTION_HOST = 'pomodoro3new.herokuapp.com'
+  FEED_NUM = 20
+  SEARCH_USER_NUM = 20
+  SEARCH_MICROPOST_NUM = 20
+  SHOW_MICROPOST_NUM = 20
+  SHOW_FOLLOW_NUM = 20
 end
