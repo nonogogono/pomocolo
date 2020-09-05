@@ -1,7 +1,11 @@
-<%= form_with(model: micropost, local: true) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<%= form_with(model: micropost, local: true, id: "micropost-form-with") do |f| %>
+  <%= render 'shared/error_messages', errors_num_unnecessary: true, object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Content", id: "micropost-content-area" %>
+    <% if need_task %>
+      <%= f.label :task, "タスク選択" %>
+      <%= f.collection_select :task, @tasks, :name, :name, {selected: last_task}, {id: "micropost-task-select"} %>
+    <% end %>
+    <%= f.text_area :content, placeholder: "Content", id: "micropost-content-area", maxlength: 200 %>
   </div>
   <%= f.submit "投稿", class: "btn btn-primary", id: "btn-post" %>
 <% end %>

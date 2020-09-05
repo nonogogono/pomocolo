@@ -1,0 +1,8 @@
+<li id="task-<%= task.id %>">
+  <div class="name"><%= task.name %></div>
+  <div class="delete-task">
+    <% if current_user == task.user %>
+      <%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <% end %>
+  <div>
+</li>

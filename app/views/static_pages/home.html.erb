@@ -3,7 +3,7 @@
     <aside class="col-md-4">
       <%= render 'shared/aside_profile', users: nil, user: current_user %>
       <section class="micropost_form">
-        <%= render 'shared/micropost_form', micropost: @micropost %>
+        <%= render 'shared/micropost_form', micropost: @micropost, need_task: false %>
       </section>
     </aside>
     <div class="col-md-8">

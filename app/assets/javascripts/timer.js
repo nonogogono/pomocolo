@@ -1,11 +1,6 @@
 $(function() {
   'use strict';
   var timer = document.getElementById('timer');
-  var min_plus = document.getElementById('min-plus');
-  var min_minus = document.getElementById('min-minus');
-  var sec_plus = document.getElementById('sec-plus');
-  var sec_minus = document.getElementById('sec-minus');
-  var reset = document.getElementById('reset');
   var start = document.getElementById('start');
   var vol_icon = document.getElementById('vol-icon');
   var startTime;
@@ -68,7 +63,7 @@ $(function() {
         timeToCountDown = 0;
         updateTimer(timeLeft);
         $("#reset").prop('disabled', true);
-        memo();
+        record_task();
         return;
       }
       updateTimer(timeLeft);
@@ -94,57 +89,6 @@ $(function() {
     }
   }
   
-  function interval() {
-    Swal.fire({
-      icon: "success",
-      title: "少し休みましょう",
-      html: '残り <b></b>',
-      timer: intervalTime,
-      timerProgressBar: true,
-      onBeforeOpen: () => {
-        setInterval(() => {
-          const content = Swal.getContent()
-          if (content) {
-            const b = content.querySelector('b')
-            if (b) {
-              let intervalLeft = Swal.getTimerLeft();
-              let m = Math.floor(intervalLeft / 60000);
-              let s = Math.floor((intervalLeft % 60000) / 1000);
-              m = ('0' + m).slice(-2);
-              s = ('0' + s).slice(-2);
-              b.textContent = m + ':' + s;
-            }
-          }
-        }, 100)
-      },
-      onClose: () => {
-        timeToCountDown = defaultTime;
-        updateTimer(timeToCountDown);
-      }
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        playSound("bath-out1");
-      }
-    })
-  }
-  
-  function memo() {
-    Swal.fire({
-      title: 'タスクへメモを残す',
-      html : 'ご自由にどうぞ',
-      input : 'textarea',
-      inputPlaceholder: 'ごゆるりと...'
-    }).then(function(result) {
-      if( result.value ){
-        console.log(result.value);
-      }
-      playSound("bath-thapon1");
-      interval();
-    });
-    timeToCountDown = intervalTime;
-    updateTimer(timeToCountDown);
-  }
-  
   $('#vol-icon').on('click',function(){
     if (vol_icon.innerHTML.indexOf('up') !== -1) {
       vol_icon.innerHTML = '<i class="fas fa-volume-mute mute-style"></i>';
@@ -156,7 +100,12 @@ $(function() {
     }
   });
   
-  start.addEventListener('click', function() {
+  $('#start').on('click', function() {
+    if (!($('.tasks').get(0))) {
+      alert('タスクを登録してください');
+      return false;
+    }
+
     if (isRunning === false) {
       isRunning = true;
       btnTimeDisabled();
@@ -173,7 +122,7 @@ $(function() {
     }
   });
   
-  reset.addEventListener('click', function() {
+  $('#reset').on('click', function() {
     clickReset = true;
     playSound("cancel6");
     timeToCountDown = 0;
@@ -181,7 +130,7 @@ $(function() {
     updateTimer(timeToCountDown);
   });
   
-  min_plus.addEventListener('click', function() {
+  $('#min-plus').on('click', function() {
     clickReset = false;
     playSound("cursor1");
     timeToCountDown += 60 * 1000;
@@ -191,7 +140,7 @@ $(function() {
     updateTimer(timeToCountDown);
   });
   
-  min_minus.addEventListener('click', function() {
+  $('#min-minus').on('click', function() {
     clickReset = false;
     playSound("cursor1");
     timeToCountDown -= 60 * 1000;
@@ -201,7 +150,7 @@ $(function() {
     updateTimer(timeToCountDown);
   });
   
-  sec_plus.addEventListener('click', function() {
+  $('#sec-plus').on('click', function() {
     clickReset = false;
     playSound("cursor2");
     timeToCountDown += 1000;
@@ -211,7 +160,7 @@ $(function() {
     updateTimer(timeToCountDown);
   });
   
-  sec_minus.addEventListener('click', function() {
+  $('#sec-minus').on('click', function() {
     clickReset = false;
     playSound("cursor2");
     timeToCountDown -= 1000;
@@ -242,4 +191,31 @@ $(function() {
   });
       
   updateTimer(defaultTime);
+
+  //モーダルウィンドウで micropost_form を出現させる
+  function record_task() {
+    if( $("#modal-overlay")[0] ) return false;
+    $("body").append('<div id="modal-overlay"></div>');
+    $("#modal-overlay").fadeIn( 100 );
+    $("#modal-content").html(
+      $(".modal-open").prop('innerHTML')
+    );
+    $('#modal-content .modal-micropost-form').css('display','block');
+    $('#modal-content').css('display','flex');
+    $('#modal-content').css('align-items','center');
+    centeringModalSyncer();
+    $("#modal-content").fadeIn( 100 );
+  }
+
+  //リサイズされたら、センタリングをする
+  $(window).resize(centeringModalSyncer);
+
+  function centeringModalSyncer() {
+    var w = $(window).width();
+    var h = $(window).height();
+    var cw = $("#modal-content").outerWidth();
+    var ch = $("#modal-content").outerHeight();
+
+    $("#modal-content").css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} );
+  }
 });
