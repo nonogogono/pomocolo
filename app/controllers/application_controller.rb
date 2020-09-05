@@ -25,6 +25,11 @@ class ApplicationController < ActionController::Base
     @microposts = @search_micropost.result(distinct: true).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
   end
 
+  def last_task
+    last_micropost_with_task = current_user.microposts.recent.where.not(task: nil).first
+    last_micropost_with_task.present? ? last_micropost_with_task.task : nil
+  end
+
   protected
 
   def configure_permitted_parameters

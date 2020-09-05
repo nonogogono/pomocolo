@@ -1,0 +1,34 @@
+<%# timer.js 下部とほぼ同様の script %>
+<%# モーダルウィンドウから micropost create 失敗時のために記述 %>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    $(function() {
+      record_task();
+
+      //モーダルウィンドウで micropost_form を出現させる
+      function record_task() {
+        if( $("#modal-overlay")[0] ) return false;
+        $("body").append('<div id="modal-overlay"></div>');
+        $("#modal-overlay").fadeIn( 100 );
+        $("#modal-content").html(
+          $(".modal-open").prop('innerHTML')
+        );
+        $('#modal-content .modal-micropost-form').css('display','block');
+        centeringModalSyncer();
+        $("#modal-content").fadeIn( 100 );
+      }
+
+      //リサイズされたら、センタリングをする
+      $(window).resize(centeringModalSyncer);
+
+      function centeringModalSyncer() {
+        var w = $(window).width();
+        var h = $(window).height();
+        var cw = $("#modal-content").outerWidth();
+        var ch = $("#modal-content").outerHeight();
+
+        $("#modal-content").css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} );
+      }
+    });
+  });
+</script>

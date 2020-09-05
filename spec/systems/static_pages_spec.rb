@@ -18,11 +18,11 @@ RSpec.describe "StaticPages", type: :system do
       let!(:akuma) { create(:user, name: "akuma", profile: "豪鬼の海外表記") }
       let!(:long_text) { "l" * 201 }
       let!(:good_text) { "今日はいい天気じゃのう。" }
-      let!(:taro_micropost1) { taro.microposts.create!(content: "芸術は爆発だ") }
-      let!(:taro_micropost2) { taro.microposts.create!(content: "自分の中に毒を持て") }
-      let!(:cameron_micropost1) { cameron.microposts.create!(content: "メリーに首ったけ") }
-      let!(:cameron_micropost2) { cameron.microposts.create!(content: "バッド・ティーチャー") }
-      let!(:akuma_micropost) { akuma.microposts.create!(content: "この拳、骨に刻むがよい！") }
+      let!(:taro_micropost1) { taro.microposts.create!(content: "芸術は爆発だ！", task: "テレビCMにて放たれるフレーズ") }
+      let!(:taro_micropost2) { taro.microposts.create!(content: "自分の中に毒を持て", task: "一読してもいいかもしれない本") }
+      let!(:cameron_micropost1) { cameron.microposts.create!(content: "メリーに首ったけ", task: "洋画") }
+      let!(:cameron_micropost2) { cameron.microposts.create!(content: "バッド・ティーチャー", task: "洋画") }
+      let!(:akuma_micropost) { akuma.microposts.create!(content: "この拳、骨に刻むがよい！", task: nil) }
 
       before do
         user.follow(taro)
@@ -54,6 +54,11 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_link "フォロー中 5人", href: following_user_path(user)
         end
 
+        within ".micropost_form" do
+          expect(page).not_to have_selector "#micropost-task-field"
+          expect(page).to have_selector "#micropost-content-area"
+        end
+
         within "#tab-feed" do
           user.feed.page.each do |micropost|
             expect(page).to have_content micropost.content
@@ -66,14 +71,14 @@ RSpec.describe "StaticPages", type: :system do
 
         # フォームは空のまま
         click_button "投稿"
-        expect(page).to have_content "1つエラーがあります"
+        expect(page).not_to have_content "1つエラーがあります"
         expect(page).to have_content "Contentを入力してください"
         expect(current_path).to eq "/microposts"
 
         # フォームに201文字を入力
         fill_in "Content", with: long_text
         click_button "投稿"
-        expect(page).to have_content "1つエラーがあります"
+        expect(page).not_to have_content "1つエラーがあります"
         expect(page).to have_content "Contentは200文字以内で入力してください"
         expect(current_path).to eq "/microposts"
         within ".col-md-8" do
@@ -118,14 +123,14 @@ RSpec.describe "StaticPages", type: :system do
         click_on "アカウント検索"
 
         within "#tab-micropost" do
-          fill_in "p[content_cont]", with: "に"
+          fill_in "p[content_or_task_cont]", with: "に"
           click_on "button"
           expect(current_path).to eq root_path
-          expect(page).to have_selector '.content', count: 3
+          expect(page).to have_selector '.content', count: 4
+          expect(page).to have_content taro_micropost1.content
           expect(page).to have_content taro_micropost2.content
           expect(page).to have_content cameron_micropost1.content
           expect(page).to have_content akuma_micropost.content
-          expect(page).not_to have_content taro_micropost1.content
           expect(page).not_to have_content cameron_micropost2.content
         end
 
@@ -153,6 +158,70 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_link "ユーザー登録", href: new_user_registration_path
           expect(page).to have_link "ログイン", href: new_user_session_path
         end
+      end
+    end
+  end
+
+  describe "timer layout" do
+    before do
+      visit timer_path
+    end
+
+    context "ログインしている場合" do
+      let!(:user) { create(:user) }
+      let!(:task_1) { user.tasks.create(name: "ジョギング") }
+      let!(:task_2) { user.tasks.create(name: "筋トレ") }
+      let!(:task_3) { user.tasks.create(name: "トイレ掃除") }
+
+      before do
+        sign_in_as user
+        visit timer_path
+      end
+
+      it "タイマーページにアクセスする" do
+        expect(current_path).to eq timer_path
+        expect(title).to eq full_title(page_title: "Timer")
+
+        within "#modal-content" do
+          expect(page).not_to have_selector ".modal-micropost-form"
+        end
+
+        within ".tasks" do
+          user.tasks.each do |task|
+            expect(page).to have_content task.name
+          end
+        end
+      end
+
+      it "task を作成する", js: true do
+        fill_in "New Task", with: "掃除"
+        click_button "button"
+        expect(current_path).to eq timer_path
+        expect(page).to have_content "タスクを追加しました！"
+        expect(page).to have_content "掃除"
+      end
+
+      it "ダイアログを経由して task を削除する", js: true do
+        within "#task-#{task_1.id}" do
+          # 削除をキャンセル
+          page.dismiss_confirm "本当に削除しますか？" do
+            click_link "削除"
+          end
+          expect(current_path).to eq timer_path
+
+          # 削除を実行
+          page.accept_confirm "本当に削除しますか？" do
+            click_link "削除"
+          end
+          expect(current_path).to eq timer_path
+        end
+        expect(page).not_to have_content task_1.name
+      end
+    end
+
+    context "ログインしていない場合" do
+      it "トップページにアクセスすると、ログインページにリダイレクトされる" do
+        expect(current_path).to eq new_user_session_path
       end
     end
   end

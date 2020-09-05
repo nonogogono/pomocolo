@@ -173,10 +173,10 @@ footer ul li {
 
 }
 
-#timer-name:hover {
-  color: brown;
-  cursor: pointer;
-}
+// #timer-name:hover {
+//   color: brown;
+//   cursor: pointer;
+// }
 
 #vol-slide{
   float: right;
@@ -527,6 +527,16 @@ input {
   }
 }
 
+.task-field {
+  width: 92%;
+  float: right;
+}
+
+.add-btn {
+  @extend .search-btn;
+  width: 8%;
+}
+
 /* microposts */
 
 .microposts {
@@ -539,6 +549,9 @@ input {
   .user {
     margin-top: 5em;
     padding-top: 0;
+    a:hover {
+      text-decoration: none;
+    }
   }
   .content {
     display: block;
@@ -548,16 +561,87 @@ input {
       padding: 5px 0;
     }
   }
+  .task {
+    color: orangered;
+    float: left;
+    margin-right: 0.7em;
+  }
   .timestamp {
     color: darkolivegreen;
     display: block;
     margin-left: 60px;
+    a:hover {
+      text-decoration: none;
+    }
   }
   .gravatar {
     float: left;
     margin-right: 10px;
     margin-top: 5px;
   }
+}
+
+#micropost-form-with {
+  .errors-full-messages {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+#micropost-content-area {
+  height: 140px;
+}
+
+/* tasks */
+
+.tasks {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 5px 0;
+    border-top: 1px solid silver;
+  }
+  .name {
+    margin-left: 20px;
+    display: inline-block;
+    float: left;
+  }
+  .delete-task {
+    text-align: right;
+    margin-right: 10px;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+/* modal */
+
+#modal-content {
+	width: 380px;
+  height: 370px;
+  border-radius: 10px;
+  padding-top: 15px;
+	background: #fff;
+	position: fixed;
+	display: none;
+	z-index: 1032;
+}
+
+#modal-overlay {
+	z-index: 1031;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 120%;
+	background-color: rgba( 0,0,0, 0.65 );
+}
+
+.modal-micropost-form {
+  display: none;
+  margin: 0 30px;
 }
 
 .gravatar-radius {

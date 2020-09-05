@@ -1,0 +1,8 @@
+<%= form_with(model: task, local: true) do |f| %>
+  <div class="clearfix">
+    <%= f.text_field :name, placeholder: "New Task", class: "task-field", id: "task-name-field", maxlength: 50 %>
+    <%= f.button :type => "submit", class: "add-btn", id: "add-btn-task" do %>
+      <i class="fas fa-plus"></i>
+    <% end %>
+  </div>
+<% end %>

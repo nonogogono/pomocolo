@@ -8,5 +8,9 @@ class StaticPagesController < ApplicationController
   end
 
   def timer
+    @micropost = current_user.microposts.build
+    @task = current_user.tasks.build
+    @tasks = current_user.tasks.recent
+    @last_task = last_task
   end
 end
