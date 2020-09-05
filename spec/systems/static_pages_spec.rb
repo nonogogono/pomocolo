@@ -193,7 +193,7 @@ RSpec.describe "StaticPages", type: :system do
         end
       end
 
-      it "task を作成する", js: true do
+      it "task を作成する" do
         fill_in "New Task", with: "掃除"
         click_button "button"
         expect(current_path).to eq timer_path
