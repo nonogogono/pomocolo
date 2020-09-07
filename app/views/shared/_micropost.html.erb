@@ -4,6 +4,7 @@
   <span class="content"><%= micropost.content %></span>
   <% if micropost.task %>
     <span class="task">#<%= micropost.task %></span>
+    <span class="task-time"> (<%= micropost.task_time %>)</span>
   <% end %>
   <span class="timestamp">
     <%= time_ago_in_words(micropost.created_at) %>前

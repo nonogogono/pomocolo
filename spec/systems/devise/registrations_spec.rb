@@ -4,7 +4,7 @@ RSpec.describe "UsersRegistrations", type: :system do
   include ApplicationHelper
 
   describe "edit layout" do
-    let!(:user) { create(:user, profile: "マン・オブ・スティールはマーベル作品？") }
+    let!(:user) { create(:user, profile: "マン・オブ・スティールはマーベル作品？", task_time: 20) }
 
     before do
       sign_in_as user
@@ -22,27 +22,31 @@ RSpec.describe "UsersRegistrations", type: :system do
         expect(page).to have_content user.profile
       end
       all(".field")[2] do
-        expect(page).to have_content user.email
+        expect(page).to have_content user.task_time
       end
       all(".field")[3] do
+        expect(page).to have_content user.email
+      end
+      all(".field")[4] do
         expect(page).not_to have_content user.password
       end
 
       # 更新に失敗
-      fill_in "ユーザー名", with: ""
-      fill_in "profile-area", with: ""
-      fill_in "メールアドレス", with: ""
-      fill_in "パスワード", with: ""
+      fill_in "user[name]", with: ""
+      fill_in "user[profile]", with: ""
+      fill_in "user[task_time]", with: ""
+      fill_in "user[email]", with: ""
+      fill_in "user[current_password]", with: ""
       click_button "更新"
       expect(current_path).to eq "/users"
       expect(page).to have_content "3 件のエラーが発生したため ユーザー は保存されませんでした"
       expect(page).to have_content "ユーザー名が入力されていません"
       expect(page).to have_content "メールアドレスが入力されていません"
       expect(page).to have_content "パスワードを入力してください"
-      fill_in "ユーザー名", with: "superman"
-      fill_in "profile-area", with: "マン・オブ・スティールはDCコミックスです！？"
-      fill_in "メールアドレス", with: "man-of-steel@dc-commics.com"
-      fill_in "パスワード", with: "ironman"
+      fill_in "user[name]", with: "superman"
+      fill_in "user[profile]", with: "マン・オブ・スティールはDCコミックスです！？"
+      fill_in "user[email]", with: "man-of-steel@dc-commics.com"
+      fill_in "user[current_password]", with: "ironman"
       click_button "更新"
       expect(current_path).to eq "/users"
       expect(page).to have_content "パスワードは不正な値です"
