@@ -1,52 +1,18 @@
 <section class="container--extend">
-  <div class="clearfix">
-    <h2 class="display-5 font-weight-bolder mb-2" id="timer-name">Timer
-      <h4 id="vol-slide">
-        <span id="vol-icon">
-          <i class="fas fa-volume-up vol-style"></i>
-        </span>
-      </h4>
-    </h2>
+  <div class="clearfix timer-header">
+    <div id="timer-name">Timer</div>
+    <div id="vol-slide">
+      <span id="vol-icon">
+        <i class="fas fa-volume-up vol-style"></i>
+      </span>
+    </div>
+    <div class="controls">
+      <button class="btn btn-secondary btn-lg" id="start" disabled="disabled">
+        <i class="fas fa-play play-style"></i>
+      </button>
+    </div>
   </div>
   <div class="shadow border border-dark" id="timer">00:00</div>
-  <div class="controls">
-    <!-- 分 セット -->
-    <div class="dropdown dropright">
-      <button class="btn btn-primary btn-lg dropdown-toggle h-100" id="min" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Min
-      </button>
-      <div class="dropdown-menu" aria-labelledby="Min" id="min-sel">
-        <% for i in 0..11 do %>
-          <a class="dropdown-item" value="<%= 5*i %>"><%= 5*i %></a>
-        <% end %>
-      </div>
-    </div>
-    <div class="btn-group-vertical">
-      <button class="btn btn-outline-primary btn-sm h-50" id="min-plus">+</button>
-      <button class="btn btn-outline-primary btn-sm h-50" id="min-minus">-</button>
-    </div>
-    <!-- 秒 セット -->
-    <div class="dropdown dropright">
-      <button class="btn btn-info btn-lg dropdown-toggle h-100" id="sec" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Sec
-      </button>
-      <div class="dropdown-menu" aria-labelledby="Sec" id="sec-sel">
-        <% for i in 0..11 do %>
-          <a class="dropdown-item" value="<%= 5*i %>"><%= 5*i %></a>
-        <% end %>
-      </div>
-    </div>
-    <div class="btn-group-vertical">
-      <button class="btn btn-outline-info btn-sm h-50" id="sec-plus">+</button>
-      <button class="btn btn-outline-info btn-sm h-50" id="sec-minus">-</button>
-    </div>
-    <!-- 停止ボタン -->
-    <button class="btn btn-outline-dark btn-lg h-100" id="reset" disabled="disabled">
-      <i class="fas fa-stop stop-style"></i>
-    </button>
-    <!-- 再生＆一時停止ボタン -->
-    <button class="btn btn-secondary btn-lg h-100" id="start" disabled="disabled">
-      <i class="fas fa-play play-style"></i>
-    </button>
-  </div>
+  <input name="task-time" type="hidden" value=<%= task_time_value %> class="set-task-time">
+  <div class="timer-info">タイマーはプロフィールから変更できます</div>
 </section>
