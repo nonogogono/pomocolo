@@ -2,6 +2,7 @@
   <%= render 'shared/error_messages', errors_num_unnecessary: true, object: f.object %>
   <div class="field">
     <% if need_task %>
+      <%= f.hidden_field :task_time, value: task_time_value %>
       <%= f.label :task, "タスク選択" %>
       <%= f.collection_select :task, @tasks, :name, :name, {selected: last_task}, {id: "micropost-task-select"} %>
     <% end %>

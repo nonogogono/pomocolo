@@ -67,4 +67,6 @@ RSpec.configure do |config|
 
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include SignInModule, type: :system
+  config.include Devise::TestHelpers, type: :helper
+  config.include ControllerMacros, type: :helper
 end

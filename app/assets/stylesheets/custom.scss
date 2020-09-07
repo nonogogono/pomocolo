@@ -127,59 +127,42 @@ footer ul li {
   display: contents;
 }
 
-/* work */
-.cover {
-  background: url(img/nixie.jpg);
-  /* background-size: cover; */
-  background-size: auto;
-}
-
-.container--extend {
-  margin: 20px auto;
-  /* width: 365px; */
-  width: 560px;
-  /* height: 500px; */
-  background: #fff;
-  padding: 15px;
-  text-align: center;
-}
-
 .clearfix::after {
   content: "";
   display: block;
   clear: both;
 }
 
+/* timer */
+
+.container--extend {
+  margin: 20px auto;
+  // width: 365px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+.timer-header {
+  padding-top: 10px;
+}
+
 .controls {
-  /* overflow: hidden; */
-  /* height: 80px; */
-  display: grid;
-  grid-template-areas:
-    "mi mi mp mp . . se se sp sp . . . . re re . st st"
-    "mi mi mm mm . . se se sm sm . . . . re re . st st";
-}
-
-.h-100 {
-  height: 100% !important;
-}
-
-.dropdown-menu {
-  min-width: inherit;
-  z-index: 100;
+  float: right;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 #timer-name{
   float: left;
-
+  font-size: 30px;
 }
 
-// #timer-name:hover {
-//   color: brown;
-//   cursor: pointer;
-// }
-
 #vol-slide{
-  float: right;
+  float: left;
+  font-size: 32px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 #vol-icon:hover{
@@ -196,38 +179,6 @@ footer ul li {
   border-radius: 30px;
 }
 
-#min {
-  grid-area: mi;
-}
-
-#min-plus {
-  grid-area: mp;
-}
-
-#min-minus {
-  grid-area: mm;
-}
-
-#sec {
-  grid-area: se;
-}
-
-#sec-plus {
-  grid-area: sp;
-}
-
-#sec-minus {
-  grid-area: sm;
-}
-
-#reset {
-  grid-area: re;
-}
-
-#start {
-  grid-area: st;
-}
-
 .play-style {
   color: lemonchiffon;
 }
@@ -236,12 +187,10 @@ footer ul li {
   color: snow;
 }
 
-.stop-style {
-  color: black;
-}
-
-#table-title {
-  font-family: 'Courier New', sans-serif;
+.timer-info {
+  text-align: right;
+  color: gray;
+  font-size: 10px;
 }
 
 /* sidebar */
@@ -503,12 +452,6 @@ input {
   }
 }
 
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
 .search-field {
   width: 94%;
   float: right;
@@ -564,6 +507,10 @@ input {
   .task {
     color: orangered;
     float: left;
+  }
+  .task-time {
+    color: gray;
+    float: left;
     margin-right: 0.7em;
   }
   .timestamp {
@@ -603,7 +550,6 @@ input {
   }
   .name {
     margin-left: 20px;
-    display: inline-block;
     float: left;
   }
   .delete-task {
