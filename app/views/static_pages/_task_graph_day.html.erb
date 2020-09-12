@@ -1,0 +1,21 @@
+<figure>
+  <div class="x-axis">
+    <ul class="legend">
+      <% tasks_day[2].each do |name, time| %>
+        <li><%= name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="graphic">
+    <div class="row">
+      <h6><%= tasks_day[0].month %>/<%= tasks_day[0].day %> (<%= tasks_day[1] %>)</h6>
+      <div class="chart" id="chart-0">
+        <% tasks_day[2].each do |name, time| %>
+          <span class="block" id="<%= name %>" title="<%= name %>: <%= time %> minutes">
+            <span class="value"><%= time %></span>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</figure>

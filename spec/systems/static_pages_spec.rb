@@ -171,7 +171,16 @@ RSpec.describe "StaticPages", type: :system do
       let!(:user) { create(:user) }
       let!(:task_1) { user.tasks.create(name: "ジョギング") }
       let!(:task_2) { user.tasks.create(name: "筋トレ") }
-      let!(:task_3) { user.tasks.create(name: "トイレ掃除") }
+      let!(:task_3) { user.tasks.create(name: "買い物") }
+      let!(:task_4) { user.tasks.create(name: "料理") }
+      let!(:micropost_3_days_ago) { user.microposts.create(content: "疲れた", created_at: 3.days.ago, task: task_1, task_time: 60) }
+      let!(:micropost_yesterday) { user.microposts.create(content: "腕立て伏せ", created_at: 1.day.ago, task: task_2, task_time: 15) }
+      let!(:micropost_task_3_today) { user.microposts.create(content: "深夜の材料調達", created_at: Time.zone.now.beginning_of_day, task: task_3, task_time: 45) }
+      let!(:micropost_task_4_today_1) { user.microposts.create(content: "無水カレー", created_at: (Time.zone.now.beginning_of_day + 1.hour), task: task_4, task_time: 30) }
+      let!(:micropost_task_4_today_2) { user.microposts.create(content: "かぼちゃぷりん", created_at: (Time.zone.now.beginning_of_day + 2.hours), task: task_4, task_time: 5) }
+      let!(:micropost_without_task_now) { create(:micropost_now) }
+      let!(:total_time_tasks_4_today) { micropost_task_4_today_1.task_time + micropost_task_4_today_2.task_time }
+      let!(:total_time_today) { micropost_task_3_today.task_time + total_time_tasks_4_today }
 
       before do
         sign_in_as user
@@ -190,6 +199,38 @@ RSpec.describe "StaticPages", type: :system do
           user.tasks.each do |task|
             expect(page).to have_content task.name
           end
+        end
+
+        within ".col-md-8" do
+          expect(page).to have_link "今週", href: week_path
+          expect(page).to have_link "今月", href: month_path
+        end
+
+        within ".legend" do
+          expect(page).to have_selector 'li', count: 2
+        end
+
+        expect(page).to have_selector 'li', text: task_3.name
+        expect(page).to have_selector 'li', text: task_4.name
+
+        within 'h6' do
+          expect(page).to have_content "#{Time.zone.now.month}/#{Time.zone.now.day} (#{total_time_today})"
+        end
+
+        within "#chart-0" do
+          expect(page).to have_selector '.value', text: total_time_tasks_4_today
+          expect(page).to have_selector '.value', count: 2
+          expect(page).to have_selector '.value', text: micropost_task_3_today.task_time
+          expect(page).to have_selector '.value', text: total_time_tasks_4_today
+        end
+
+        within ".microposts" do
+          expect(page).to have_content micropost_task_3_today.content
+          expect(page).to have_content micropost_task_4_today_1.content
+          expect(page).to have_content micropost_task_4_today_2.content
+          expect(page).not_to have_content micropost_3_days_ago.content
+          expect(page).not_to have_content micropost_yesterday.content
+          expect(page).not_to have_content micropost_without_task_now.content
         end
       end
 
@@ -216,6 +257,23 @@ RSpec.describe "StaticPages", type: :system do
           expect(current_path).to eq timer_path
         end
         expect(page).not_to have_content task_1.name
+      end
+
+      it "ダイアログを経由して micropost を削除する", js: true do
+        within "#micropost-#{micropost_task_3_today.id}" do
+          # 削除をキャンセル
+          page.dismiss_confirm "本当に削除しますか？" do
+            click_link "削除"
+          end
+          expect(current_path).to eq timer_path
+
+          # 削除を実行
+          page.accept_confirm "本当に削除しますか？" do
+            click_link "削除"
+          end
+          expect(current_path).to eq timer_path
+        end
+        expect(page).not_to have_content micropost_task_3_today.content
       end
     end
 

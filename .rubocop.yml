@@ -7,6 +7,9 @@ Rails:
 Metrics/LineLength:
   Enabled: false
 
+Style/RedundantReturn:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'db/**/*'

@@ -20,9 +20,16 @@ class MicropostsController < ApplicationController
       if @micropost.task.blank?
         render 'static_pages/home'
       else
+        # micropost 作成
+        @last_task = last_task
+        # task 作成, 一覧
         @task = current_user.tasks.build
         @tasks = current_user.tasks.recent
-        @last_task = last_task
+        # task グラフ
+        @tasks_today = tasks_day_set(Time.zone.now)
+        # Today's task
+        @microposts_with_task_today = microposts_with_task(Time.zone.now)
+
         @show_modal = true
         render 'static_pages/timer'
       end
@@ -32,9 +39,7 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = "投稿を削除しました！"
-    if request.referer.include?('users')
-      redirect_to user_url(current_user)
-    elsif request.path_info[0..10] == microposts_path
+    if request.referer.include?('microposts')
       redirect_to root_url
     else
       redirect_back(fallback_location: root_url)

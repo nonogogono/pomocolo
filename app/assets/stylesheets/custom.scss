@@ -564,25 +564,25 @@ input {
 /* modal */
 
 #modal-content {
-	width: 380px;
+  width: 380px;
   height: 370px;
   border-radius: 10px;
   padding-top: 15px;
-	background: #fff;
-	position: fixed;
-	display: none;
-	z-index: 1032;
+  background: #fff;
+  position: fixed;
+  display: none;
+  z-index: 1032;
 }
 
 #modal-overlay {
-	z-index: 1031;
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 120%;
-	background-color: rgba( 0,0,0, 0.65 );
+  z-index: 1031;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-color: rgba( 0,0,0, 0.65 );
 }
 
 .modal-micropost-form {
@@ -621,6 +621,180 @@ span.image {
     &:hover {
       background: whitesmoke;
       border-radius: 5px;
+    }
+  }
+}
+
+/* task graph */
+
+.graph-change {
+  font-size: 18px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+figure {
+  background-color: #272b34;
+  background-image :
+    /* 方眼紙横線 */
+    repeating-linear-gradient(to bottom,
+       transparent 14px,
+       rgba(255, 255, 255, 0.21) 15px,  rgba(255, 255, 255, 0.21) 15px,
+       transparent 16px,  transparent 29px,
+       rgba(255, 255, 255, 0.21) 30px,  rgba(255, 255, 255, 0.21) 30px,
+       transparent 31px,  transparent 44px,
+       rgba(255, 255, 255, 0.21) 45px,  rgba(255, 255, 255, 0.21) 45px,
+       transparent 46px,  transparent 59px,
+       rgba(255, 255, 255, 0.21) 60px,  rgba(255, 255, 255, 0.21) 60px,
+       transparent 61px,  transparent 74px,
+       rgba(255, 255, 255, 0.21) 75px,  rgba(255, 255, 255, 0.21) 75px),
+
+    /* 方眼紙縦線 */
+    repeating-linear-gradient(to right,
+       transparent 14px,
+       rgba(255, 255, 255, 0.21) 15px,  rgba(255, 255, 255, 0.21) 15px,
+       transparent 16px,  transparent 29px,
+       rgba(255, 255, 255, 0.21) 30px,  rgba(255, 255, 255, 0.21) 30px,
+       transparent 31px,  transparent 44px,
+       rgba(255, 255, 255, 0.21) 45px,  rgba(255, 255, 255, 0.21) 45px,
+       transparent 46px,  transparent 59px,
+       rgba(255, 255, 255, 0.21) 60px,  rgba(255, 255, 255, 0.21) 60px,
+       transparent 61px,  transparent 74px,
+       rgba(255, 255, 255, 0.21) 75px,  rgba(255, 255, 255, 0.21) 75px);
+
+  font-family: 'Khula', sans-serif;
+  font-weight: 300;
+  color: white;
+  line-height: 1em;
+  padding: 2em;
+  margin: 0 auto 20px;
+  max-width: 1100px;
+  position: relative;
+
+  h3, h6 {
+    margin: 0;
+    line-height: 1em;
+  }
+  h3 {
+    margin-bottom: 1em;
+  }
+  h6 {
+    font-size: .9em;
+    padding: 0 0 .5em;
+    color: white;
+  }
+  .graphic {
+    padding-left: 30px;
+    max-height: 800px;
+    overflow-y: scroll;
+  }
+  .row {
+    margin-bottom: 1.5em;
+  }
+  @keyframes expand {
+    from {width: 0%;}
+    to {width: 100%;}
+  }
+  @media screen and (min-width: 768px) {
+    @keyframes expand {
+        from {width: 0%;}
+        to {width: calc(100% - 75px);}
+    }
+  }
+  .chart {
+    overflow: hidden;
+    width: 0%;
+    animation: expand 1.5s ease forwards;
+  }
+  .row + .row .chart {
+    animation-delay: .2s;
+  }
+  .row + .row + .row .chart {
+    animation-delay: .4s;
+  }
+  .block {
+    display: block;
+    height: 100px;
+    color: #fff;
+    font-size: .75em;
+    float: left;
+    background-color: #334D5C;
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity, .3s ease;
+    cursor: pointer;
+  }
+
+  --task-color-1: aqua;
+  --task-color-2: lime;
+  --task-color-3: #45B29D;
+  --task-color-4: gold;
+  --task-color-5: #EFC94C;
+  --task-color-6: #E27A3F;
+  --task-color-7: #DF5A49;
+  --task-color-8: #962D3E;
+  --task-color-9: red;
+  --task-color-10: hotpink;
+  --task-color-11: magenta;
+  --task-color-12: darkviolet;
+  --task-color-13: mediumpurple;
+  --task-color-14: dodgerblue;
+  --task-color-15: mediumblue;
+  --task-color-16: darkcyan;
+  --task-color-17: mediumseagreen;
+  --task-color-18: darkkhaki;
+  --task-color-19: rosybrown;
+  --task-color-20: firebrick;
+
+  @for $i from 1 through 20 {
+    .legend li:nth-of-type(#{$i}):before {
+      background-color: var(--task-color-#{$i});
+    }
+  }
+
+  .block:hover {
+    opacity: .65;
+  }
+  .value {
+    display: block;
+    line-height: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .x-axis {
+    text-align: right;
+  }
+  .legend {
+    margin-left: auto;
+    padding: 0;
+    font-size: .9em;
+  }
+  .legend li {
+    display: inline-block;
+    padding: .25em 1em;
+    line-height: 1em;
+  }
+  .legend li:before {
+    content: "";
+    margin-right: .5em;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #334D5C;
+  }
+  @media screen and (min-width: 768px) {
+    h6 {
+        padding: 0;
+        width: 75px;
+        float: left;
+        line-height: 100px;
+    }
+    .block {
+        font-size: 1em;
     }
   }
 }

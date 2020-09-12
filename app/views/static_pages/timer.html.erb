@@ -16,6 +16,20 @@
     <% end %>
   </aside>
   <div class="col-md-8">
+    <!-- タスクグラフ -->
+    <%= link_to "今週", week_path, class: "graph-change" %>
+    <%= link_to "今月", month_path, class: "graph-change" %>
+    <%= render 'static_pages/task_graph_day', tasks_day: @tasks_today %>
+    <!-- 本日のタスク内容 -->
+    <% if @microposts_with_task_today.any? %>
+      <h3>Today's task (<%= @microposts_with_task_today.count %>)</h3>
+      <ol class="microposts">
+        <% @microposts_with_task_today.each do |micropost| %>
+          <%= render 'shared/micropost', micropost: micropost %>
+        <% end %>
+      </ol>
+      <%= paginate @microposts_with_task_today %>
+    <% end %>
   </div>
 </div>
 <!--（モーダルウィンドウ）マイクロポストフォーム -->
