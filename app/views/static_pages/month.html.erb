@@ -2,8 +2,10 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Task ( <%= Time.zone.now.year %>/<%= Time.zone.now.month %> )</h1>
-    <%= link_to "今日", timer_path, class: "graph-change" %>
-    <%= link_to "今週", week_path, class: "graph-change" %>
+    <div data-turbolinks="false">
+      <%= link_to "今日", timer_path, class: "graph-change" %>
+      <%= link_to "今週", week_path, class: "graph-change" %>
+    </div>
     <%= render 'static_pages/task_graph_term', tasks_term: @tasks_this_month, task_names_term: @task_names_this_month %>
   </div>
 </div>
