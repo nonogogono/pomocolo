@@ -74,6 +74,7 @@ group :development do
   gem 'rubocop-airbnb'
   gem 'erb_lint', require: false
   gem 'spring-commands-rspec'
+  gem 'bullet'
 end
 
 group :test do

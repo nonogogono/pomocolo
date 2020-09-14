@@ -26,7 +26,7 @@ RSpec.describe "Users", type: :system do
 
     context "ゲストユーザーでない場合" do
       let!(:user) { create(:user, profile: "海の王者になるために生まれました") }
-      let!(:micropost_1) { user.microposts.create(content: "イカ漁", created_at: 10.minutes.ago, task: "漁") }
+      let!(:micropost_1) { user.microposts.create(content: "イカ漁", created_at: 10.minutes.ago, task: "漁", task_time: "30") }
       let!(:micropost_2) { user.microposts.create(content: "ホイ漁", created_at: 30.minutes.ago) }
       let!(:micropost_3) { user.microposts.create(content: "エビ漁", created_at: 45.minutes.ago) }
       let!(:micropost_4) { user.microposts.create(content: "カニ漁", created_at: 1.hour.ago) }
@@ -76,6 +76,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_link micropost_1.user.name, href: user_path(micropost_1.user)
             expect(page).to have_content micropost_1.content
             expect(page).to have_content "##{micropost_1.task}"
+            expect(page).to have_content "(#{micropost_1.task_time})"
             expect(page).to have_content "#{time_ago_in_words(micropost_1.created_at)}前"
             expect(page).to have_link "削除", href: micropost_path(micropost_1.id)
           end
@@ -83,6 +84,7 @@ RSpec.describe "Users", type: :system do
           within "#micropost-#{micropost_20.id}" do
             expect(page).to have_content micropost_20.content
             expect(page).not_to have_content "#"
+            expect(page).not_to have_content "()"
           end
 
           expect(page).not_to have_content micropost_21.content

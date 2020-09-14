@@ -11,18 +11,25 @@ class MicropostsController < ApplicationController
         redirect_to timer_url
       end
     else
-      @feed_items = current_user.feed.recent.page(params[:page]).per(Constants::FEED_NUM)
+      @feed_items = current_user.feed.includes([:user]).recent.page(params[:page]).per(Constants::FEED_NUM)
       @search_user = User.ransack(params[:q])
       @users = @search_user.result(distinct: true).page(params[:page]).per(Constants::SEARCH_USER_NUM) if params[:q].present?
       @search_micropost = Micropost.ransack(params[:p], search_key: :p)
-      @microposts = @search_micropost.result(distinct: true).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
+      @microposts = @search_micropost.result(distinct: true).includes([:user]).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
 
       if @micropost.task.blank?
         render 'static_pages/home'
       else
+        # micropost 作成
+        @last_task = last_task
+        # task 作成, 一覧
         @task = current_user.tasks.build
         @tasks = current_user.tasks.recent
-        @last_task = last_task
+        # task グラフ
+        @tasks_today = tasks_day_set(Time.zone.now)
+        # Today's task
+        @microposts_with_task_today = microposts_with_task(Time.zone.now)
+
         @show_modal = true
         render 'static_pages/timer'
       end
@@ -32,9 +39,7 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = "投稿を削除しました！"
-    if request.referer.include?('users')
-      redirect_to user_url(current_user)
-    elsif request.path_info[0..10] == microposts_path
+    if request.referer.include?('microposts')
       redirect_to root_url
     else
       redirect_back(fallback_location: root_url)
