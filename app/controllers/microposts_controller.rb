@@ -46,6 +46,12 @@ class MicropostsController < ApplicationController
     end
   end
 
+  def show
+    @micropost = Micropost.find(params[:id])
+    @comment = current_user.comments.build
+    @comments = @micropost.comments.includes([:user]).recent.page(params[:page]).per(Constants::COMMENT_NUM)
+  end
+
   private
 
   def micropost_params

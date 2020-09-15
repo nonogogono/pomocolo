@@ -21,7 +21,7 @@ RSpec.describe "Microposts", type: :request do
   context "ログインしていない場合" do
     it "micropost を投稿しようとすると、ログインページにリダイレクトされること" do
       expect do
-        post microposts_path, params: { micropost: { content: "縄跳び" } }
+        post microposts_path, params: { micropost: { user_id: user.id, content: "縄跳び" } }
       end.not_to change(Micropost, :count)
       is_expected.to redirect_to new_user_session_path
     end
