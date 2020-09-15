@@ -74,17 +74,20 @@ RSpec.describe "Users", type: :system do
           within "#micropost-#{micropost_1.id}" do
             expect(page).to have_selector "img.gravatar"
             expect(page).to have_link micropost_1.user.name, href: user_path(micropost_1.user)
+            expect(page).to have_selector ".task-info"
+            within ".task-info" do
+              expect(page).to have_content "##{micropost_1.task}"
+              expect(page).to have_content "(#{micropost_1.task_time}分)"
+            end
             expect(page).to have_content micropost_1.content
-            expect(page).to have_content "##{micropost_1.task}"
-            expect(page).to have_content "(#{micropost_1.task_time})"
             expect(page).to have_content "#{time_ago_in_words(micropost_1.created_at)}前"
             expect(page).to have_link "削除", href: micropost_path(micropost_1.id)
+            expect(page).to have_link "コメント(#{micropost_1.comments.count})", href: micropost_path(micropost_1.id)
           end
 
           within "#micropost-#{micropost_20.id}" do
             expect(page).to have_content micropost_20.content
-            expect(page).not_to have_content "#"
-            expect(page).not_to have_content "()"
+            expect(page).not_to have_selector ".task-info"
           end
 
           expect(page).not_to have_content micropost_21.content

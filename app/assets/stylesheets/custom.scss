@@ -480,7 +480,7 @@ input {
   width: 8%;
 }
 
-/* microposts */
+/* microposts & comments */
 
 .microposts {
   list-style: none;
@@ -493,6 +493,12 @@ input {
     margin-top: 5em;
     padding-top: 0;
     a:hover {
+      text-decoration: none;
+    }
+  }
+  .content-link {
+    color: black;
+    &:hover {
       text-decoration: none;
     }
   }
@@ -521,6 +527,12 @@ input {
       text-decoration: none;
     }
   }
+  .comment-link {
+    color: darkolivegreen;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   .gravatar {
     float: left;
     margin-right: 10px;
@@ -528,15 +540,36 @@ input {
   }
 }
 
-#micropost-form-with {
+#micropost-form-with,
+#comment-form-with {
   .errors-full-messages {
     padding-left: 0;
     text-align: center;
   }
 }
 
-#micropost-content-area {
+#micropost-content-area,
+#comment-content-area {
   height: 140px;
+}
+
+.micropost-back {
+  margin-top: 20px;
+  float: right;
+}
+
+.comments-wrapper {
+  border-left: solid 3px gray;
+  margin-left: 20px;
+}
+
+.comments {
+  @extend .microposts;
+  margin-left: 10px;
+}
+
+.comment-title {
+  margin-top: 20px;
 }
 
 /* tasks */

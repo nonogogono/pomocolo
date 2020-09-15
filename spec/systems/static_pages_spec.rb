@@ -72,20 +72,10 @@ RSpec.describe "StaticPages", type: :system do
         # フォームは空のまま
         click_button "投稿"
         expect(page).not_to have_content "1つエラーがあります"
-        expect(page).to have_content "Contentを入力してください"
+        expect(page).to have_content "投稿内容を入力してください"
         expect(current_path).to eq "/microposts"
 
-        # フォームに201文字を入力
-        fill_in "Content", with: long_text
-        click_button "投稿"
-        expect(page).not_to have_content "1つエラーがあります"
-        expect(page).to have_content "Contentは200文字以内で入力してください"
-        expect(current_path).to eq "/microposts"
-        within ".col-md-8" do
-          expect(page).not_to have_content long_text
-        end
-
-        # フォームに200字以内で入力
+        # フォームに入力
         fill_in "Content", with: good_text
         click_button "投稿"
         expect(page).to have_content "投稿されました！"
@@ -235,8 +225,11 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "task を作成する" do
-        fill_in "New Task", with: "掃除"
-        click_button "button"
+        within ".task_form" do
+          fill_in "New Task", with: "掃除"
+          click_button "button"
+        end
+
         expect(current_path).to eq timer_path
         expect(page).to have_content "タスクを追加しました！"
         expect(page).to have_content "掃除"

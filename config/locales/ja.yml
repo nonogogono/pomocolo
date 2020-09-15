@@ -9,8 +9,10 @@ ja:
     models:
       comment: コメント
     attributes:
+      micropost:
+        content: 投稿内容
       comment:
-        content: 内容
+        content: コメント内容
   date:
     abbr_day_names:
     - 日

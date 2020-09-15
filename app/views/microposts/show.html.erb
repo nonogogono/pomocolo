@@ -1,0 +1,26 @@
+<% provide(:title, "コメント") %>
+<div class="row">
+  <aside class="col-md-4">
+    <%= render 'shared/aside_profile', users: nil, user: current_user %>
+    <section class="comment_form">
+      <%= render 'microposts/comment_form', micropost: @micropost, comment: @comment %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <div class="microposts">
+      <%= render 'microposts/micropost_show', micropost: @micropost %>
+    </div>
+    <% if @comments.any? %>
+      <h3 class="comment-title">Comments (<%= @micropost.comments.count %>)</h3>
+      <div class="comments-wrapper">
+        <ol class="comments">
+          <% @comments.each do |comment| %>
+            <%= render 'microposts/comment', comment: comment %>
+          <% end %>
+        </ol>
+      </div>
+      <%= paginate @comments %>
+    <% end %>
+    <%= link_to "戻る", request.referer, class: "btn btn-secondary btn-sm micropost-back" %>
+  </div>
+</div>
