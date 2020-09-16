@@ -66,6 +66,15 @@ RSpec.describe "StaticPages", type: :system do
         end
       end
 
+      it "like をする" do
+        visit root_path
+
+        within "#micropost-#{taro_micropost1.id} .like" do
+          expect { click_button "button" }.to change(Like, :count).by(1)
+          expect { click_button "button" }.to change(Like, :count).by(-1)
+        end
+      end
+
       it "micropost を投稿する" do
         visit root_path
 

@@ -9,10 +9,11 @@
   <% end %>
   <span class="content"><%= micropost.content %></span>
   <span class="timestamp">
-    <%= time_ago_in_words(micropost.created_at) %>前
+    <div class="time-ago"><%= time_ago_in_words(micropost.created_at) %>前</div>
     <%= link_to micropost_path(micropost), class: "comment-link" do %>
-      コメント(<%= micropost.comments.count %>)
+      <i class="far fa-comments"></i> <%= micropost.comments.count %>
     <% end %>
+    <%= render 'shared/like', micropost: micropost %>
     <% if current_user == micropost.user %>
       <%= link_to "削除", micropost, method: :delete, data: { confirm: "本当に削除しますか？" } %>
     <% end %>

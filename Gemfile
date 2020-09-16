@@ -49,6 +49,7 @@ gem 'aws-sdk-s3', '1.46.0', require: false
 gem 'faker', '2.1.2'
 gem 'kaminari'
 gem 'ransack'
+gem 'counter_culture', '~> 1.8'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
