@@ -82,7 +82,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content micropost_1.content
             expect(page).to have_content "#{time_ago_in_words(micropost_1.created_at)}前"
             expect(page).to have_link "削除", href: micropost_path(micropost_1.id)
-            expect(page).to have_link "コメント(#{micropost_1.comments.count})", href: micropost_path(micropost_1.id)
+            expect(page).to have_link micropost_1.comments.count, href: micropost_path(micropost_1.id)
           end
 
           within "#micropost-#{micropost_20.id}" do

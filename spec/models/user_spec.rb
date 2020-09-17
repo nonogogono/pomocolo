@@ -71,6 +71,18 @@ RSpec.describe User, type: :model do
     expect { user.destroy }.to change(Task, :count).by(-1)
   end
 
+  it "user が削除されたら user が作成した comment も削除されること" do
+    user.save
+    user.comments.create(micropost_id: taro_micropost1.id, content: "勢いは大事")
+    expect { user.destroy }.to change(Comment, :count).by(-1)
+  end
+
+  it "user が削除されたら user がした like も削除されること" do
+    user.save
+    taro_micropost1.like(user)
+    expect { user.destroy }.to change(Like, :count).by(-1)
+  end
+
   it "フォローとアンフォローの動作が正しいこと" do
     expect(taro.following?(cameron)).to eq false
     expect(cameron.followers?(taro)).to eq false

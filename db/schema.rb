@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_134338) do
+ActiveRecord::Schema.define(version: 2020_09_15_132207) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_09_14_134338) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "micropost_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["micropost_id"], name: "index_likes_on_micropost_id"
+    t.index ["user_id", "micropost_id"], name: "index_likes_on_user_id_and_micropost_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id"
@@ -29,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_134338) do
     t.datetime "updated_at", null: false
     t.string "task"
     t.integer "task_time"
-    t.integer "in_reply_to"
+    t.integer "likes_count", default: 0, null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
   end
