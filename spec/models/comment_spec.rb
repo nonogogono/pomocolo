@@ -34,4 +34,10 @@ RSpec.describe Comment, type: :model do
     comment.valid?
     expect(comment.errors[:content]).to include("は200文字以内で入力してください")
   end
+
+  it "comment が削除されたら関連する notification も削除されること" do
+    comment.save
+    micropost_taro.notify_comment(user, comment.id)
+    expect { comment.destroy }.to change(Notification, :count).by(-1)
+  end
 end

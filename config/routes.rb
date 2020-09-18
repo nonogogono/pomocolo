@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   resources :tasks, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+  resources :notifications, only: :index
 end

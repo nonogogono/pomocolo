@@ -83,6 +83,12 @@ RSpec.describe User, type: :model do
     expect { user.destroy }.to change(Like, :count).by(-1)
   end
 
+  it "user が削除されたら user の notification も削除されること" do
+    user.save
+    taro.notify_follow(user)
+    expect { user.destroy }.to change(Notification, :count).by(-1)
+  end
+
   it "フォローとアンフォローの動作が正しいこと" do
     expect(taro.following?(cameron)).to eq false
     expect(cameron.followers?(taro)).to eq false
@@ -118,5 +124,16 @@ RSpec.describe User, type: :model do
     taro.microposts.each do |post_unfollowed|
       expect(funassyi.feed.include?(post_unfollowed)).to eq false
     end
+  end
+
+  it "notify_follow で 未フォローであれば notification が増えること" do
+    user.save
+    expect { taro.notify_follow(user) }.to change(Notification, :count).by(1)
+  end
+
+  it "notify_follow で 既にフォロー済みであれば notification は変わらないこと" do
+    user.save
+    taro.notify_follow(user)
+    expect { taro.notify_follow(user) }.not_to change(Notification, :count)
   end
 end

@@ -480,6 +480,26 @@ input {
   width: 8%;
 }
 
+/* notification */
+.n-circle {
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 0rem;
+  color: #efa04c;
+}
+
+.notification-link {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.notification-time-ago {
+  float: right; 
+  margin-left: .6em;
+  color: darkolivegreen;
+}
+
 /* microposts */
 
 .microposts {
