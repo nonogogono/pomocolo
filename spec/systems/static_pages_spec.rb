@@ -153,7 +153,6 @@ RSpec.describe "StaticPages", type: :system do
 
         within "header" do
           expect(page).to have_link nil, href: root_path, count: 2
-          expect(page).to have_link "タイマー", href: timer_path
           expect(page).to have_link "ユーザー登録", href: new_user_registration_path
           expect(page).to have_link "ログイン", href: new_user_session_path
         end
