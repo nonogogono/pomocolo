@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
     if @comment.save
       flash[:success] = "コメントされました！"
+      @micropost.notify_comment(current_user, @comment.id)
       redirect_to micropost_url(@micropost)
     else
       @comments = @micropost.comments.includes([:user]).recent.page(params[:page]).per(Constants::COMMENT_NUM)

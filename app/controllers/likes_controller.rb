@@ -4,6 +4,7 @@ class LikesController < ApplicationController
     unless @micropost.like?(current_user)
       @micropost.like(current_user)
       @micropost.reload
+      @micropost.notify_like(current_user)
       respond_to do |format|
         format.html { redirect_back(fallback_location: root_path) }
         format.js

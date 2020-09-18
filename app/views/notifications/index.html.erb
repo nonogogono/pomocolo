@@ -1,0 +1,8 @@
+<% provide(:title, "通知") %>
+<br>
+<% if @notifications.present? %>
+  <%= render @notifications %>
+  <%= paginate @notifications %>
+<% else %>
+  <h2>通知はありません</h2>
+<% end %>

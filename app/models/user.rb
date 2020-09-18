@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: "visitor_id", dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: "visited_id", dependent: :destroy
 
   # override Devise::Models::Confirmable#send_on_create_confirmation_instructions
   def send_on_create_confirmation_instructions
@@ -56,5 +58,14 @@ class User < ApplicationRecord
 
   def followers?(other_user)
     followers.include?(other_user)
+  end
+
+  def notify_follow(visitor)
+    # フォロー済であれば何もしない
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", visitor.id, id, 'follow'])
+    return if temp.present?
+
+    notification = visitor.active_notifications.build(visited_id: id, action: 'follow')
+    notification.save if notification.valid?
   end
 end
