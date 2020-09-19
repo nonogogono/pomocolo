@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get '/timer', to: 'static_pages#timer'
   get '/week', to: 'static_pages#week'
+  post '/week', to: 'static_pages#week_specified'
   get '/month', to: 'static_pages#month'
+  post '/month', to: 'static_pages#month_specified'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

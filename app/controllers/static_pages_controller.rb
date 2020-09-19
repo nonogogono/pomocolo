@@ -24,12 +24,53 @@ class StaticPagesController < ApplicationController
   end
 
   def week
-    @task_names_this_week = task_names_term_distinct(Time.zone.now.all_week)
-    @tasks_this_week = tasks_week_set(Time.zone.now)
+    moment = Time.zone.now
+    @start_day = moment.beginning_of_week
+    @end_day = moment.end_of_week
+    @task_names_week = task_names_term_distinct(moment.all_week)
+    @tasks_week = tasks_week_set(moment)
+    @tasks_total_time_week = to_h_and_m(tasks_total_time_term(@tasks_week))
+  end
+
+  def week_specified
+    moment = params[:date].in_time_zone
+    moment = Time.zone.now if moment.nil?
+    @start_day = moment.beginning_of_week
+    @end_day = moment.end_of_week
+    @task_names_week = task_names_term_distinct(moment.all_week)
+    @tasks_week = tasks_week_set(moment)
+    @tasks_total_time_week = to_h_and_m(tasks_total_time_term(@tasks_week))
+    render :week
   end
 
   def month
-    @task_names_this_month = task_names_term_distinct(Time.zone.now.all_month)
-    @tasks_this_month = tasks_month_set(Time.zone.now)
+    @moment = Time.zone.now
+    @task_names_month = task_names_term_distinct(@moment.all_month)
+    @tasks_month = tasks_month_set(@moment)
+    @tasks_total_time_month = to_h_and_m(tasks_total_time_term(@tasks_month))
+  end
+
+  def month_specified
+    @moment = select_time_zone(params[:date])
+    @moment = Time.zone.now if @moment.nil?
+    @task_names_month = task_names_term_distinct(@moment.all_month)
+    @tasks_month = tasks_month_set(@moment)
+    @tasks_total_time_month = to_h_and_m(tasks_total_time_term(@tasks_month))
+    render :month
+  end
+
+  protected
+
+  # minutes を hours, minutes 表記に変換する
+  def to_h_and_m(minutes)
+    (minutes / 60).to_s + ' h ' + format('%02d', minutes % 60) + " m"
+  end
+
+  # date_select タグから time zone を取得する
+  def select_time_zone(date)
+    year = format('%04d', date["#{Time.zone.today}(1i)"])
+    month = format('%02d', date["#{Time.zone.today}(2i)"])
+    day = format('%02d', date["#{Time.zone.today}(3i)"])
+    (year + '-' + month + '-' + day).in_time_zone
   end
 end

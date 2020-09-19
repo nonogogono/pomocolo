@@ -140,16 +140,14 @@ RSpec.describe "StaticPages", type: :system do
 
       it "ログアウトする" do
         click_link "ログアウト"
-        expect(current_path).to eq new_user_session_path
-        expect(page).to have_content "アカウント登録もしくはログインしてください"
+        expect(current_path).to eq root_path
+        expect(page).to have_content "ログアウトしました。"
       end
     end
 
     context "ログインしていない場合" do
-      it "トップページにアクセスすると、ログインページにリダイレクトされる" do
-        expect(current_path).to eq new_user_session_path
-        expect(title).to eq full_title(page_title: "ログイン")
-        expect(page).to have_content "アカウント登録もしくはログインしてください"
+      it "トップページにアクセスする" do
+        expect(current_path).to eq root_path
 
         within "header" do
           expect(page).to have_link nil, href: root_path, count: 2
@@ -200,8 +198,8 @@ RSpec.describe "StaticPages", type: :system do
         end
 
         within ".col-md-8" do
-          expect(page).to have_link "今週", href: week_path
-          expect(page).to have_link "今月", href: month_path
+          expect(page).to have_link "週毎", href: week_path
+          expect(page).to have_link "月毎", href: month_path
         end
 
         within ".legend" do

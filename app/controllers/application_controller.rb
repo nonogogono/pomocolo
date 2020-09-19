@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :home
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
@@ -96,6 +96,16 @@ class ApplicationController < ActionController::Base
     end
 
     return task_names_week
+  end
+
+  # 期間内の全タスクの合計時間を返す
+  def tasks_total_time_term(tasks_term_set)
+    total_time_term = 0
+    tasks_term_set.each do |moment, total_time, each_task|
+      total_time_term += total_time
+    end
+
+    return total_time_term
   end
 
   protected

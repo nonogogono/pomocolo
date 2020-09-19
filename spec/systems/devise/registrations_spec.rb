@@ -74,8 +74,8 @@ RSpec.describe "UsersRegistrations", type: :system do
       page.accept_confirm "本当に削除しますか？" do
         click_link "アカウント削除"
       end
-      expect(current_path).to eq new_user_session_path
-      expect(page).to have_content "アカウント登録もしくはログインしてください"
+      expect(current_path).to eq root_path
+      expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
     end
   end
 end
