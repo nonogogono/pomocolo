@@ -30,6 +30,7 @@ RSpec.describe "StaticPages", type: :system do
       let!(:total_time_monday) { micropost_task_2_monday.task_time + micropost_task_6_monday.task_time + micropost_task_7_monday_1.task_time + micropost_task_7_monday_2.task_time }
       let!(:total_time_tuesday) { micropost_task_4_tuesday_1.task_time + micropost_task_4_tuesday_2.task_time + micropost_task_4_tuesday_3.task_time }
       let!(:total_time_friday) { micropost_task_2_friday.task_time + micropost_task_5_friday.task_time }
+      let!(:total_time_week) { total_time_monday + total_time_tuesday + total_time_friday }
 
       before do
         sign_in_as user
@@ -38,12 +39,16 @@ RSpec.describe "StaticPages", type: :system do
 
       it "週グラフページにアクセスする" do
         expect(current_path).to eq week_path
-        expect(title).to eq full_title(page_title: "グラフ")
+        expect(title).to eq full_title(page_title: "週")
         expect(page).to have_link "今日", href: timer_path
-        expect(page).to have_link "今月", href: month_path
+        expect(page).to have_link "月毎", href: month_path
 
         within 'h1' do
           expect(page).to have_content "#{Time.zone.now.beginning_of_week.year}/#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.day} ~ #{Time.zone.now.end_of_week.year}/#{Time.zone.now.end_of_week.month}/#{Time.zone.now.end_of_week.day}"
+        end
+
+        within 'h3' do
+          expect(page).to have_content "total: #{(total_time_week / 60).to_s + ' h ' + format('%02d', total_time_week % 60) + " m"}"
         end
 
         within ".legend" do

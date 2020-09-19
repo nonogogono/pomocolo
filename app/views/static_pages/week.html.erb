@@ -1,12 +1,23 @@
-<% provide(:title, "グラフ") %>
+<% provide(:title, "週") %>
 <div class="row">
-  <div class="col-md-12">
-    <h1>Task ( <%= Time.zone.now.beginning_of_week.year %>/<%= Time.zone.now.beginning_of_week.month %>/<%= Time.zone.now.beginning_of_week.day %>
-     ~ <%= Time.zone.now.end_of_week.year %>/<%= Time.zone.now.end_of_week.month %>/<%= Time.zone.now.end_of_week.day %> )</h1>
-    <div data-turbolinks="false">
-      <%= link_to "今日", timer_path, class: "graph-change" %>
-      <%= link_to "今月", month_path, class: "graph-change" %>
+  <div class="col-md-6 offset-md-3">
+    <%= link_to "今日", timer_path, class: "graph-change" %>
+    <%= link_to "月毎", month_path, class: "graph-change" %>
+    <div class="change-term">
+      <%= form_with(url: week_path, local: true) do %>
+        <%= date_field_tag :date, Time.zone.today.to_s, class: "date-field" %>
+        <%= button_tag type: "submit", class: "btn btn-info btn-sm btn-term" do %>
+          <i class="fas fa-calendar-alt"></i> 変更（週）
+        <% end %>
+      <% end %>
     </div>
-    <%= render 'static_pages/task_graph_term', tasks_term: @tasks_this_week, task_names_term: @task_names_this_week %>
+  </div>
+  <div class="col-md-12">
+    <h1 class="display-term">
+      Task ( <%= @start_day.year %>/<%= @start_day.month %>/<%= @start_day.day %>
+       ~ <%= @end_day.year %>/<%= @end_day.month %>/<%= @end_day.day %> )
+    </h1>
+    <h3 style="text-align: center;">total: <%= @tasks_total_time_week %></h3>
+    <%= render 'static_pages/task_graph_term', tasks_term: @tasks_week, task_names_term: @task_names_week %>
   </div>
 </div>

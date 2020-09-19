@@ -635,6 +635,21 @@ input {
   }
 }
 
+.display-term {
+  margin-top: 30px;
+}
+
+.date-field {
+  width: 75%;
+}
+
+/* with_css_class of date_select */
+
+.year,
+.month {
+  width: 36%;
+}
+
 /* modal */
 
 #modal-content {
