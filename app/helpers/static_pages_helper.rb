@@ -6,4 +6,12 @@ module StaticPagesHelper
       Constants::DEFAULT_TASK_TIME
     end
   end
+
+  def break_time_value
+    if current_user.break_time
+      current_user.break_time
+    else
+      Constants::DEFAULT_BREAK_TIME
+    end
+  end
 end

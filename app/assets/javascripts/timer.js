@@ -105,6 +105,56 @@ $(function() {
     }, 10);
   }
 
+  //休憩用タイマー
+  if ($("#break-time-on").text() == "on") {
+    ready_to_break();
+  }
+
+  function ready_to_break() {
+    Swal.fire({
+      title: 'Break Time',
+      html : ''
+    }).then(function(result) {
+      playSound("bath-thapon1");
+      break_time();
+    });
+  }
+
+  function break_time() {
+    let timerInterval;
+    let intervalTime = $('.set-break-time').val() * 60 * 1000;
+    Swal.fire({
+      icon: "success",
+      title: "Break Time",
+      html: '<b></b>',
+      timer: intervalTime,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+          if (content) {
+            const b = content.querySelector('b')
+            if (b) {
+              let intervalLeft = Swal.getTimerLeft();
+              let m = Math.floor(intervalLeft / 60000);
+              let s = Math.floor((intervalLeft % 60000) / 1000);
+              m = ('0' + m).slice(-2);
+              s = ('0' + s).slice(-2);
+              b.textContent = m + ':' + s;
+            }
+          }
+        }, 100)
+      },
+      onClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        playSound("bath-out1");
+      }
+    })
+  }
+
   //モーダルウィンドウで micropost_form を出現させる
   function record_task() {
     if( $("#modal-overlay")[0] ) return false;

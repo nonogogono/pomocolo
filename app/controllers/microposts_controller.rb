@@ -8,16 +8,16 @@ class MicropostsController < ApplicationController
       if @micropost.task.blank?
         redirect_to root_url
       else
-        redirect_to timer_url
+        redirect_to timer_url(break_time: "on")
       end
     else
-      @feed_items = current_user.feed.includes([:user]).recent.page(params[:page]).per(Constants::FEED_NUM)
-      @search_user = User.ransack(params[:q])
-      @users = @search_user.result(distinct: true).page(params[:page]).per(Constants::SEARCH_USER_NUM) if params[:q].present?
-      @search_micropost = Micropost.ransack(params[:p], search_key: :p)
-      @microposts = @search_micropost.result(distinct: true).includes([:user]).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
-
       if @micropost.task.blank?
+        @feed_items = current_user.feed.includes([:user]).recent.page(params[:page]).per(Constants::FEED_NUM)
+        @search_user = User.ransack(params[:q])
+        @users = @search_user.result(distinct: true).page(params[:page]).per(Constants::SEARCH_USER_NUM) if params[:q].present?
+        @search_micropost = Micropost.ransack(params[:p], search_key: :p)
+        @microposts = @search_micropost.result(distinct: true).includes([:user]).recent.page(params[:page]).per(Constants::SEARCH_MICROPOST_NUM) if params[:p].present?
+
         render 'static_pages/home'
       else
         # micropost 作成

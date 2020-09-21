@@ -11,6 +11,8 @@ class StaticPagesController < ApplicationController
   end
 
   def timer
+    # task あり micropost を create 後のみ休憩のダイアログを表示する
+    @break_time_on = params[:break_time]
     # micropost 作成
     @micropost = current_user.microposts.build
     @last_task = last_task
