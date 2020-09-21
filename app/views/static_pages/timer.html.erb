@@ -1,6 +1,9 @@
 <% provide(:title, "Timer") %>
 <div class="row">
   <aside class="col-md-4">
+    <!-- 休憩用タイマー -->
+    <span hidden id="break-time-on"><%= @break_time_on %></span>
+    <input name="break-time" type="hidden" value=<%= break_time_value %> class="set-break-time">
     <!-- Timer -->
     <%= render 'static_pages/timer_box' %>
     <!-- タスク追加 & 一覧表示 -->

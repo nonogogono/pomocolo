@@ -25,9 +25,12 @@ RSpec.describe "UsersRegistrations", type: :system do
         expect(page).to have_content user.task_time
       end
       all(".field")[3] do
-        expect(page).to have_content user.email
+        expect(page).to have_content user.break_time
       end
       all(".field")[4] do
+        expect(page).to have_content user.email
+      end
+      all(".field")[5] do
         expect(page).not_to have_content user.password
       end
 
@@ -35,6 +38,7 @@ RSpec.describe "UsersRegistrations", type: :system do
       fill_in "user[name]", with: ""
       fill_in "user[profile]", with: ""
       fill_in "user[task_time]", with: ""
+      fill_in "user[break_time]", with: ""
       fill_in "user[email]", with: ""
       fill_in "user[current_password]", with: ""
       click_button "更新"
