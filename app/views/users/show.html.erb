@@ -13,7 +13,9 @@
       <% else %>
         <%= render 'follow_form' %>
       <% end %>
-      <p><%= @user.profile %></p>
+      <% if @user.profile %>
+        <p><%= safe_join(@user.profile.split("\n"), tag(:br)) %></p>
+      <% end %>
     </section>
     <div>
       <%= render 'shared/stats', user: @user %>
