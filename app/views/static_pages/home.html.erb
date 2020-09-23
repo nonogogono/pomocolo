@@ -32,9 +32,15 @@
     </div>
   </div>
 <% else %>
-  <div class="center jumbotron">
-    <h1>Pomodoro</h1>
-    <p>ポモドーロテクニックで集中！</p>
-    <p>タスクは管理しよう！</p>
+  <div class="home-wrapper">
+    <h1><%= Constants::APP_NAME %></h1><br>
+    <p>タイマーで区切ってタスクに集中</p>
+    <p>終わったら記録を残そう</p>
+    <p>日々の積み重ねを見える化してヤル気を継続！</p>
+    <div class="new-user-link">
+      <hr style="max-width: 400px;">
+      <%= link_to "ユーザー登録", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+    </div>
   </div>
 <% end %>
