@@ -21,7 +21,7 @@ $(function() {
   function same_as_legend_color(block_class) {
     var block_id = $(block_class).attr('id');
 
-    for (var i=0; i<20; i++) {
+    for (var i=0; i<30; i++) {
       if( block_id == $(`.legend li:nth-of-type(${i+1})`).text()) {
         $(block_class).css('background-color', `var(--task-color-${i+1})`);
         return;

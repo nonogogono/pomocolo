@@ -5,9 +5,9 @@
     <div class="task-info">
       <span class="task">#<%= micropost.task %></span>
       <span class="task-time"> (<%= micropost.task_time %>)</span>
-    </div>
+    </div><br>
   <% end %>
-  <span class="content"><%= micropost.content %></span>
+  <span class="content"><%= safe_join(micropost.content.split("\n"), tag(:br)) %></span>
   <span class="timestamp">
     <div class="time-ago"><%= time_ago_in_words(micropost.created_at) %>前</div>
     <%= render 'shared/like', micropost: micropost %>

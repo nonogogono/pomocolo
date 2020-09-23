@@ -10,6 +10,9 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def policy
+  end
+
   def timer
     # task あり micropost を create 後のみ休憩のダイアログを表示する
     @break_time_on = params[:break_time]

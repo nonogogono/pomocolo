@@ -64,6 +64,10 @@ p {
 
 /* header */
 
+header {
+  margin-bottom: 15px;
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -75,11 +79,9 @@ p {
   font-weight: bold;
 }
 
-#logo:hover {
-  // color: blue;
-  text-decoration: none;
+.bg-original {
+  background-color: #FFDBC9;
 }
-
 
 /* footer */
 
@@ -131,6 +133,43 @@ footer ul li {
   content: "";
   display: block;
   clear: both;
+}
+
+/* unsigned home */
+
+.home-wrapper {
+  background: image-url("russian-3714722_1920.jpg");
+  background-color:rgba(255,255,255,0.7);
+  background-blend-mode: lighten;
+  background-size: cover;
+  padding: 20px;
+  text-align: center;
+  color: midnightblue;
+}
+
+.new-user-link {
+  margin-top: 35px;
+  a {
+    text-decoration: none;
+  }
+}
+
+/* policy */
+
+.policy-link {
+  a {
+    text-decoration: none;
+  }
+}
+
+.wrapHINAGATA {
+  h2, p, li {
+    text-align: left;
+  }
+  h2 {
+    color: black;
+    font-weight: bold;
+  }
 }
 
 /* timer */
@@ -488,6 +527,19 @@ input {
   color: #efa04c;
 }
 
+.notificaiton-icon-text-wrapper{
+  margin-right: 2.5em;
+  position: relative;
+
+  .notification-icon-text {
+    position: absolute;
+    top: -5px;
+    left: 3px;
+    width: 2.5em;
+  }
+
+}
+
 .notification-link {
   a:hover {
     text-decoration: none;
@@ -816,28 +868,38 @@ figure {
     cursor: pointer;
   }
 
-  --task-color-1: aqua;
-  --task-color-2: lime;
-  --task-color-3: #45B29D;
-  --task-color-4: gold;
-  --task-color-5: #EFC94C;
-  --task-color-6: #E27A3F;
-  --task-color-7: #DF5A49;
-  --task-color-8: #962D3E;
-  --task-color-9: red;
-  --task-color-10: hotpink;
-  --task-color-11: magenta;
-  --task-color-12: darkviolet;
-  --task-color-13: mediumpurple;
-  --task-color-14: dodgerblue;
-  --task-color-15: mediumblue;
-  --task-color-16: darkcyan;
-  --task-color-17: mediumseagreen;
-  --task-color-18: darkkhaki;
-  --task-color-19: rosybrown;
-  --task-color-20: firebrick;
+  --task-color-1: lightcoral;
+  --task-color-2: orange;
+  --task-color-3: red;
+  --task-color-4: greenyellow;
+  --task-color-5: darkred;
+  --task-color-6: steelblue;
+  --task-color-7:	pink;
+  --task-color-8: green;
+  --task-color-9: hotpink;
+  --task-color-10: mediumslateblue;
+  --task-color-11: palevioletred;
+  --task-color-12: aqua;
+  --task-color-13: lightsalmon;
+  --task-color-14: deepskyblue;
+  --task-color-15: orangered;
+  --task-color-16: gold;
+  --task-color-17: papayawhip;
+  --task-color-18: chocolate;
+  --task-color-19: darkkhaki;
+  --task-color-20: limegreen;
+  --task-color-21: blanchedalmond;
+  --task-color-22: lightseagreen;
+  --task-color-23: lavender;
+  --task-color-24: orchid;
+  --task-color-25: purple;
+  --task-color-26: darkslateblue;
+  --task-color-27: burlywood;
+  --task-color-28: silver;
+  --task-color-29: black;
+  --task-color-30: lightslategray;
 
-  @for $i from 1 through 20 {
+  @for $i from 1 through 30 {
     .legend li:nth-of-type(#{$i}):before {
       background-color: var(--task-color-#{$i});
     }

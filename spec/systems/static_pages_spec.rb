@@ -44,9 +44,12 @@ RSpec.describe "StaticPages", type: :system do
 
         within "header" do
           expect(page).to have_link nil, href: root_path, count: 2
-          expect(page).to have_link "タイマー", href: timer_path
-          expect(page).to have_link "あなた", href: user_path(user)
+          expect(page).to have_link "タスク", href: timer_path
+          expect(page).to have_link "プロフィール", href: user_path(user)
+          expect(page).to have_link "通知", href: notifications_path
           expect(page).to have_link "ログアウト", href: destroy_user_session_path
+          expect(page).not_to have_link "ユーザー登録", href: new_user_registration_path
+          expect(page).not_to have_link "ログイン", href: new_user_session_path
         end
 
         within ".stats" do
@@ -63,6 +66,10 @@ RSpec.describe "StaticPages", type: :system do
           user.feed.page.each do |micropost|
             expect(page).to have_content micropost.content
           end
+        end
+
+        within "footer" do
+          expect(page).to have_link "利用規約", href: policy_path
         end
       end
 
@@ -153,6 +160,10 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_link nil, href: root_path, count: 2
           expect(page).to have_link "ユーザー登録", href: new_user_registration_path
           expect(page).to have_link "ログイン", href: new_user_session_path
+          expect(page).not_to have_link "タスク", href: timer_path
+          expect(page).not_to have_link "プロフィール"
+          expect(page).not_to have_link "通知", href: notifications_path
+          expect(page).not_to have_link "ログアウト", href: destroy_user_session_path
         end
       end
     end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
+  get '/policy', to: 'static_pages#policy'
   get '/timer', to: 'static_pages#timer'
   get '/week', to: 'static_pages#week'
   post '/week', to: 'static_pages#week_specified'
