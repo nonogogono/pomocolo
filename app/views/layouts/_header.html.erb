@@ -1,33 +1,52 @@
-<header class="navbar nabvar-expand navbar-dark navbar-fixed-top">
+<header>
   <div class="container">
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-      <%= link_to "Pomodoro", root_path, id: "logo" %>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <%= link_to "ホーム", root_path, class: "nav-link" %>
-        </li>
-        <% if user_signed_in? %>
+    <nav class="navbar navbar-expand-md navbar-light bg-original fixed-top">
+      <%= link_to root_path, id: "logo" do %>
+        <img src="https://fontmeme.com/permalink/200922/f847879e5067d5ad9b79f09d276a9bc4.png" alt="font-instagram" border="0">
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#responsiveMenu" aria-controls="responsiveMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="responsiveMenu">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <%= link_to "タイマー", timer_path, data: {"turbolinks" => false}, class: "nav-link" %>
+            <%= link_to root_path, class: "nav-link" do %>
+              <i class="fas fa-home fa-lg"></i> ホーム
+            <% end %>
           </li>
-          <li class="nav-item">
-            <%= link_to "あなた", user_path(current_user), class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= render 'shared/notifications' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "ユーザー登録", new_user_registration_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to timer_path, data: {"turbolinks" => false}, class: "nav-link" do %>
+                <i class="fas fa-stopwatch fa-lg"></i> タスク
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_path(current_user), class: "nav-link" do %>
+                <i class="far fa-user fa-lg"></i> プロフィール
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= render 'shared/notifications' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
+                <i class="fas fa-door-open fa-lg"></i> ログアウト
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: "nav-link" do %>
+                <i class="fas fa-user-plus fa-lg"></i> ユーザー登録
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: "nav-link" do %>
+                <i class="fas fa-door-closed fa-lg"></i> ログイン
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </nav>
   </div>
 </header>
