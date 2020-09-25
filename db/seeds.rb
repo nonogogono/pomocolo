@@ -26,7 +26,7 @@ tasks = ["プログラミング（Ruby）", "プログラミング（Python）",
   "水泳", "ジョギング", "筋トレ", "テニス（サーブ）", "テニス（ストローク）", "読書", "ボイストレーニング", "ギター", "ベース", "ドラム", "ピアノ", "バンド練習", "作詞", "作曲", "編曲",
   "耳コピ", "ソルフェージュ", "簿記", "株", "習字（硬筆）", "習字（筆）", "釣り", "動画編集", "フォトショップ", "ネタ作り", "ネタ合わせ", "ロボットダンス", "日本舞踊", "ツーリング", "座禅"]
 
-task_type = 7
+task_type = 9
 users.each { |user|
   task_names = tasks.sample(task_type)
   task_type.times { |n|
@@ -35,36 +35,46 @@ users.each { |user|
 }
 
 # マイクロポスト
-70.times { |n|
+300.times { |n|
   users.each { |user|
     while true
-      created_at = Time.zone.now.beginning_of_week.days_since(rand(0..6)) + (n/3).hours + n.minutes
+      created_at = Time.zone.now.beginning_of_month.days_since(rand(0..30)) + (n/13).hours + (n/60).minutes + (n%60).seconds
       break if created_at < Time.zone.now
     end
 
     if n % 3 == 0
       task = nil
       task_time = nil
-      if n < 10
+      if n % 100 < 10
         content = "#{Faker::Food.fruits} 食べたい"
-      elsif n < 20
+      elsif n % 100 < 20
         content = "#{Faker::Space.planet} が見える"
         content += " 実はそこからきました" if n == 25
-      elsif n < 30
+      elsif n % 100 < 30
         content = "最近 #{Faker::Vehicle.manufacture} から #{Faker::Vehicle.manufacture} に乗り替えました"
-      elsif n < 40
+      elsif n % 100 < 40
         content = "#{Faker::Music::RockBand.name} はやはりかっこいい..."
-      elsif n < 50
+      elsif n % 100 < 50
         content = "みんなで #{Faker::Beer.name} のみたい"
-      elsif n < 60
+      elsif n % 100 < 60
         content = "#{Faker::JapaneseMedia::DragonBall.character} が一番強いとおもうなぁ。"
+      elsif n % 100 < 70
+        content = "#{Faker::Job.title} のお仕事に興味があります。"
+      elsif n % 100 < 80
+        content = "#{Faker::Science.scientist} のようになりたいものだ。"
+      elsif n % 100 < 90
+        content = "ウチの #{Faker::Creature::Dog.breed} の名前は #{Faker::Creature::Dog.name} です。よろしくね。"
       else
         content = "やせいの #{Faker::Games::Pokemon.name} があらわれた！"
       end
     else
       task = user.tasks[rand(0..task_type-1)].name
-      task_time = rand(1..60)
-      if n % 5 == 0
+      task_time = 25
+      if n % 11 == 0
+        content = "ご飯食べてから続きをやろう..."
+      elsif n % 7 == 0
+        content = "もうそろそろ終わりそう！！"
+      elsif n % 5 == 0
         content = "すごく集中できた！"
       elsif n % 4 == 0
         content = "あまり集中できなかった... そろそろ休憩しようかな。"
