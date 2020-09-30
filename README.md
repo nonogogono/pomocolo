@@ -15,7 +15,7 @@
  
 # URL
  
-https://pomocolo.herokuapp.com/  
+https://pomocolo.work/
 ログインページから「ゲストログイン」をクリックすることで、ゲストアカウントとしてログインできます。
  
 # 機能一覧
