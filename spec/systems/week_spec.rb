@@ -60,13 +60,13 @@ RSpec.describe "StaticPages", type: :system do
           expect(page).to have_selector 'li', text: task_7
         end
 
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(0).day} (#{total_time_monday})"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(1).day} (#{total_time_tuesday})"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(2).day} (0)"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(3).day} (0)"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(4).day} (#{total_time_friday})"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(5).day} (0)"
-        expect(page).to have_content "#{Time.zone.now.beginning_of_week.month}/#{Time.zone.now.beginning_of_week.days_since(6).day} (0)"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(0).month}/#{Time.zone.now.beginning_of_week.days_since(0).day} (#{total_time_monday})"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(1).month}/#{Time.zone.now.beginning_of_week.days_since(1).day} (#{total_time_tuesday})"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(2).month}/#{Time.zone.now.beginning_of_week.days_since(2).day} (0)"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(3).month}/#{Time.zone.now.beginning_of_week.days_since(3).day} (0)"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(4).month}/#{Time.zone.now.beginning_of_week.days_since(4).day} (#{total_time_friday})"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(5).month}/#{Time.zone.now.beginning_of_week.days_since(5).day} (0)"
+        expect(page).to have_content "#{Time.zone.now.beginning_of_week.days_since(6).month}/#{Time.zone.now.beginning_of_week.days_since(6).day} (0)"
 
         within "#chart-0" do
           expect(page).to have_selector '.value', count: 3
