@@ -1,8 +1,8 @@
 <% provide(:title, "週") %>
 <div class="row">
   <div class="col-md-6 offset-md-3">
-    <%= link_to "今日", timer_path, class: "graph-change" %>
-    <%= link_to "月毎", month_path, class: "graph-change" %>
+    <%= link_to "今日", timer_path, data: {"turbolinks" => false}, class: "graph-change" %>
+    <%= link_to "月毎", month_path, data: {"turbolinks" => false}, class: "graph-change" %>
     <div class="change-term">
       <%= form_with(url: week_path, local: true) do %>
         <%= date_field_tag :date, Time.zone.today.to_s, class: "date-field" %>

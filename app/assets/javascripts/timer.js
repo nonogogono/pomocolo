@@ -60,15 +60,6 @@ $(function() {
     var s = d.getSeconds();
     var timerString;
 
-    // あるいは
-    // if (h == 10) {
-    //   m = '60';
-    // } else {
-    //   m = ('0' + m).slice(-2);
-    // }
-    // s = ('0' + s).slice(-2);
-    // timerString = m + ':' + s;
-
     if (h == 10) {
       timerString = '60:00';
     } else {

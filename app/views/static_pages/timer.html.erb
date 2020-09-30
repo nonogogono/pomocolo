@@ -21,8 +21,8 @@
   <div class="col-md-8">
     <!-- タスクグラフ -->
     <div data-turbolinks="false">
-      <%= link_to "週毎", week_path, class: "graph-change" %>
-      <%= link_to "月毎", month_path, class: "graph-change" %>
+      <%= link_to "週毎", week_path, data: {"turbolinks" => false}, class: "graph-change" %>
+      <%= link_to "月毎", month_path, data: {"turbolinks" => false}, class: "graph-change" %>
     </div>
     <%= render 'static_pages/task_graph_day', tasks_day: @tasks_today %>
     <!-- 本日のタスク内容 -->

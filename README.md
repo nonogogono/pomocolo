@@ -1,24 +1,59 @@
-# README
+# PomoColo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ ![トップ画面](https://user-images.githubusercontent.com/60566979/94264075-0516f780-ff71-11ea-890b-e24ec83a2402.png)
 
-Things you may want to cover:
+![本日のタスク画面](https://user-images.githubusercontent.com/60566979/94264143-22e45c80-ff71-11ea-925d-cd0e99877b69.png)
 
-* Ruby version
+# 概要 
 
-* System dependencies
+「ポモドーロ・テクニック[1]」と「塗り絵勉強法[2]」を合わせたタスク管理アプリです。
+自分で決めた時間ごとに区切ってタスクをこなし、一言添えて色で記録を残していきます。
+また、他の人の投稿にいいねやコメントを残して、応援し合うこともできます。
 
-* Configuration
+[1]: 25分のタスクと5分の休憩を１単位とし、繰り返し集中を続けてタスクに取り組むことができる手法。
+[2]: 方眼紙と教科毎に異なるカラーペンを用いて、１５分毎に１マス塗って記録する勉強法。客観的に勉強量を把握できる他、色を塗ること自体がモチベーションになる。
+ 
+# URL
+ 
+https://pomocolo.work/
+ログインページから「ゲストログイン」をクリックすることで、ゲストアカウントとしてログインできます。
+ 
+# 機能一覧
+ 
+* ユーザー登録、ログイン、ログアウト、編集、削除、メール認証、パスワード変更 (devise)
+* マイクロポスト投稿、削除
+* コメント機能
+* マイクロポスト一覧、詳細表示
+* フォロー＆フォロワー一覧
+* ページネーション (kaminari)
+* いいね、フォロー機能 (Ajax)
+* 通知機能
+* ユーザー検索、マイクロポスト検索 (ransack)
+* タイマー機能
+* タスク投稿、削除
+* タスクグラフ表示、切替（当日、週、月）
+* レスポンシブデザイン対応
+ 
+# 使用技術
 
-* Database creation
+## フロントエンド
+* HTML (ERB)
+* Sass, Bootstrap4
+* JavaScript (jQuery, SweetAlert2)
 
-* Database initialization
+## バックエンド
+* Ruby 2.5.3
+* Ruby on Rails 5.2.4.3
 
-* How to run the test suite
+## DB
+* MySQL 5.7
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## インフラ・開発環境等
+* Docker/docker-compose
+* CircleCI (CI/CD)
+* puma, Heroku
+* Git, GitHub
+* RuboCop (RuboCop Airbnb)
+* RSpec
+* Bullet
+ 
